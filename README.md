@@ -24,24 +24,14 @@ Como se ha comentado cada uno de los tres proyectos necesita su propio puerto pa
 - 2. la base de datos corre en el puerto por defecto de mysql workbench, **3306** de la mencionada dirección.
 - 3. El backend de springboot corra en el puerto por defecto **8080**.
 
-En primer lugar, es importante que se respeten estos puertos porque en las distintas fetch-APIs del front-end apuntamos al puerto 8080. Por poner un ejemplo, esto lo podemos ver en la landing page cuando un usuario introduce su correo en el formulario y le da al botón de registro: esto va a mandar el correo desde el frontend al endpoint del backend -el endpoint está en la línea 171- mediante un json del estilo `{"email":"asd@ijk.com"}`:
-
-https://github.com/blackcub3s/miApp/blob/9d06a71d4e7966cfe74a9e770beeb251e6a7bb50/APP%20WEB/__frontend__produccio__/landingPage/pas1_landingSignUp.html#L171-L177
-
-Asimismo, y en segundo lugar, dentro del back-end de springboot queremos exponerle al front-end distintos *endpoints*. Estos los definimos dentro de `UsuariControlador.java`, una clase controlador de Java en donde tenemos especificado que se permite el acceso cruzado desde la IP loopback y el puerto 5500 del front-end de vscode. Por ejemplo, la solicitud POST anterior será recogida por el endpoint del backend `localhost/api/usuariExisteix` y luego resuelta con una petición de vuelta con información en el cuerpo de la solicitud POST[^3] (que explicaremos más en detalle en los siguientes apartados). Fijaros que solo se permitirá que el servidor acepte la petición de esa IP y ese puerto dado que en la anotación @CrossOrigin de dentro del controlador del back-end así lo especificamos (véase la línea 33):
-
-https://github.com/blackcub3s/miApp/blob/9d06a71d4e7966cfe74a9e770beeb251e6a7bb50/APP%20WEB/__springboot__produccio__/app/src/main/java/pirapp/app/Usuaris/controlador/UsuariControlador.java#L31-L35
-
-Finalmente, y en tercer lugar, dentro del archivo de configuración de springboot `application.properties` tenemos definida la conexión con la base de datos (línea 5) donde especificamos la IP y el puerto que nos da workbench para que Java se comunique con la base de datos, así como las credenciales de acceso a la misma:
-
-https://github.com/blackcub3s/miApp/blob/9d06a71d4e7966cfe74a9e770beeb251e6a7bb50/APP%20WEB/__springboot__produccio__/app/src/main/resources/application.properties#L4-L8
+En primer lugar, es importante que se respeten estos puertos porque en las distintas fetch-APIs del front-end apuntamos al puerto 8080. Asimismo, en los controladores de springboot permitimos consumir las APIs de orígenes cruzados solamente desde el puerto 5500. Finalmente, dentro del archivo [aplication/properties](APP WEB/__springboot__produccio__/app/src/main/resources/application.properties) del backend especificamos que la base de datos está en el puerto 8080. En el apartado [Ir a la sección 3.1 Página inicial (landing page)](#31-página-inicial-landing-page) explicamos concretamente qué es lo que pasa realmente.
 
 
 > NOTA: Esta página es software propietario mio que no es de dominio público en tanto que forma parte de una idea de negocio, con lo cual solamente voy a mostrar una pequeña porción del mismo para demostrar un conocimiento generalista del framework springboot.
 
 # 3. Diagrama de flujo
 
-Como se ha comentado anteriormente, este sistema de registr y de iniciar sesión sido inspirado mediante un proceso de desarrollo inverso observando el funcionamiento de la página de netflix. Así pues el comportamiento que describimos aquí es tanto aplicable a la página que he creado como a la página de netflix.
+Como se ha comentado anteriormente, este sistema de registro y de iniciar sesión ha sido inspirado mediante un proceso de desarrollo inverso observando el funcionamiento de la página de netflix. Así pues, el comportamiento que describimos aquí es tanto aplicable a la página que he creado como a la página de netflix.
 
 El diagrama de flujo del proyecto de este repositiorio es el siguiente:
 
@@ -53,6 +43,7 @@ Este se puede entender del siguiente modo:
 2. Cada rombo de fondo amarillo es una decisión que se hará dentro del backend de springboot, dado que requiere hacer consultas a la BBDD y contiene datos sensibles.
 3. Los rombos de fondo azul se decidirán en el front-end en tanto que sus decisiones no requieran consultar información personal en la base de datos y no requerirán, por lo tanto, de uso del back-end.
 4. El paréntesis que incluye la extensión de una URL debajo de cada paralelogramo naranja es cada página de netflix cuyo comportamiento y, en menor medida, aspecto, se ha intentado replicar en el archivo html del rombo que está contiguo. Por ejemplo el archivo html `pas2A_infoBenvinguda.html` de mi proyecto es una réplica de la página especificada en el paréntesis `netflix.com/signup/registration` y el usuario llegará a ella gracias a hacer una misma lógica de backend que la que usa netflix. 
+
 
 >⚠️ **NOTA**: es muy importante hacer notar que las consultas de datos personales a la base de datos -correos y contraseñas- no se deben hacer desde el frontend, porque los archivos del frontend son públicos para el usuario y podrían exponer los datos de los usuarios en la base de datos a vulnerabilidades.
 
@@ -67,11 +58,52 @@ Nuestra página replicada tiene este aspecto:
 
 **INSERTAR IMATGE**
 
-Lo más importante que tiene es el botón de iniciar sesión en la parte superior derecha y el formulario para mandar el correo y registrarse en caso que un usuario no lo esté. Lo importante es que los datos que se mandarán desde el cliente, con javascript desde aquí:
+Lo más importante que tiene es el botón de iniciar sesión en la parte superior derecha y el formulario para mandar el correo y registrarse en caso que un usuario no lo esté. Nos centraremos únicamente en este último aspecto: el formulario de registro.
 
-Hasta el backend hasta aquí (en el controlador):
+Pero para entender los apartados 3.1.1 a 3.1.4, en donde desgranamos los distintos tipos de clases que escribimos en un proyecto springboot, deberemos tener en mente el siguiente esquema y el concepto "inyección de dependencias":
 
-Provienen de este formulario.
+Es importante que el lector entienda que se programa primero la clase Usuari.java, luego UsuariRepositori.java, luego UsuariService.java y luego UsuariController.java. Pero para entenderlo y explicarlo procederé en orden inverso porque es mucho más sencillo, en mi opinión, de trasmitir al lector:
+
+**INSERTAR IMATGE D'ESQUEMA COMPLETAT**
+
+
+
+## 3.1.1 del front-end al back-end: definición de endpoints (clase "controller"), puertos y conexión con bbdd
+
+Así las cosas, cuando un usuario introduce su correo en el formulario de registro y le da al botón de registro esto va a mandar el correo desde el frontend al endpoint del backend -el endpoint está en la línea 171- dentro del _cuerpo_ o body de la solicitud mediante un JSON del estilo `{"email":"asd@ijk.com"}`:
+
+https://github.com/blackcub3s/miApp/blob/9d06a71d4e7966cfe74a9e770beeb251e6a7bb50/APP%20WEB/__frontend__produccio__/landingPage/pas1_landingSignUp.html#L171-L177
+
+Asimismo, y en segundo lugar, dentro del back-end de springboot queremos exponer al front-end el *endpoint* correspondiente para recibir el cuerpo de esta solicitud. Los distintos endpoints en springboot (y probablemente en otros frameworks de backend) los endpoints los vamos a definir dentro de lo que llaman una clase "controller" o controlador. En este caso, la clase controlador que nos ocupa está en el archivo `UsuariControlador.java`, en donde tenemos especificado que se permite el acceso cruzado desde la IP loopback y el puerto 5500 (el front-end de vscode). Por ejemplo, la solicitud POST anterior será recogida por el endpoint del backend `localhost/api/usuariExisteix` y luego será resuelta con una petición de vuelta con información en el cuerpo de la solicitud POST[^3] (que explicaremos más en detalle en los siguientes apartados). Fijaros que tenemos la seguridad en mente, ya que solo se permitirá que el servidor acepte la petición una IP y puerto concretos: los que se especifican con la la anotación de java @CrossOrigin de dentro del controlador del back-end (véase la línea 33) del archivo donde se define, a continuación:
+
+https://github.com/blackcub3s/miApp/blob/9d06a71d4e7966cfe74a9e770beeb251e6a7bb50/APP%20WEB/__springboot__produccio__/app/src/main/java/pirapp/app/Usuaris/controlador/UsuariControlador.java#L31-L35
+
+Finalmente, y en tercer lugar, dentro del archivo de configuración de springboot `application.properties` tenemos definida la conexión con la base de datos (línea 5) donde especificamos la IP y el puerto que nos da workbench para que Java se comunique con la base de datos, así como las credenciales de acceso a la misma:
+
+https://github.com/blackcub3s/miApp/blob/9d06a71d4e7966cfe74a9e770beeb251e6a7bb50/APP%20WEB/__springboot__produccio__/app/src/main/resources/application.properties#L4-L8
+
+
+## 3.1.2 definición de la clase "service" (la lógica de negocio)
+
+## 3.1.3 definición de la clase "Respositori" (las consultas a la BBDD)
+
+## 3.1.4 definición de la clase "Usuari" (con el ORM o mapeado de objeto java a entidad de bbdd)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
  Si el usuario ha introducido un correo y el correo tiene una estructura válida se va a hacer una primera comprobación en el back-end y la base de datos mediante la API rest. Entonces se mirará si existe el correo.
 
