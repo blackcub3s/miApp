@@ -56,7 +56,7 @@ La página inicial `pas1_landingSignUp.html` nos muestra una "landing page".
 
 Nuestra página replicada tiene este aspecto:
 
-https://github.com/blackcub3s/miApp/blob/609d440db083e853ea9a6000fa0ba83d4d0905b9/imatges%20replica/pas1_landingSignUp_.png
+![replica pagina inicial netflix no cargó](https://github.com/blackcub3s/miApp/blob/609d440db083e853ea9a6000fa0ba83d4d0905b9/imatges%20replica/pas1_landingSignUp_.png)
 
 Lo más importante que tiene es el botón de iniciar sesión en la parte superior derecha y el formulario para mandar el correo y registrarse en caso que un usuario no lo esté. Nos centraremos únicamente en este último aspecto: el formulario de registro.
 
