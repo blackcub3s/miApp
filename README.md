@@ -26,15 +26,15 @@ Como se ha comentado cada uno de los tres proyectos necesita su propio puerto pa
 
 En primer lugar, es importante que se respeten estos puertos porque en las distintas fetch-APIs del front-end apuntamos al puerto 8080. Por poner un ejemplo, esto lo podemos ver en la landing page cuando un usuario introduce su correo en el formulario y le da al botón de registro: esto va a mandar el correo desde el frontend al endpoint del backend -el endpoint está en la línea 172- mediante un json del estilo `{"email":"asd@ijk.com"}`:
 
-https://github.com/blackcub3s/pirApp/blob/77203daad85c9e100e6fb91e42babe769ec8eecd/APP%20WEB/__frontend__produccio__/landingPage/pas1_landingSignUp.html#L172-L178
+https://github.com/blackcub3s/miApp/blob/9d06a71d4e7966cfe74a9e770beeb251e6a7bb50/APP%20WEB/__frontend__produccio__/landingPage/pas1_landingSignUp.html#L171-L177
 
 Asimismo, y en segundo lugar, dentro del back-end de springboot queremos exponerle al front-end distintos *endpoints*. Estos los definimos dentro de `UsuariControlador.java`, una clase controlador de Java en donde tenemos especificado que se permite el acceso cruzado desde la IP loopback y el puerto 5500 del front-end de vscode. Por ejemplo, la solicitud POST anterior será recogida por el endpoint del backend `localhost/api/usuariExisteix` y luego resuelta con una petición de vuelta con información en el cuerpo de la solicitud POST[^2] (que explicaremos más en detalle en los siguientes apartados). Fijaros que solo se permitirá que el servidor acepte la petición de esa IP y ese puerto dado que en la anotación @CrossOrigin de dentro del controlador del back-end así lo especificamos (véase la línea 33):
 
-https://github.com/blackcub3s/pirApp/blob/77203daad85c9e100e6fb91e42babe769ec8eecd/APP%20WEB/__springboot__produccio__/app/src/main/java/pirapp/app/Usuaris/controlador/UsuariControlador.java#L31-L35
+https://github.com/blackcub3s/miApp/blob/9d06a71d4e7966cfe74a9e770beeb251e6a7bb50/APP%20WEB/__springboot__produccio__/app/src/main/java/pirapp/app/Usuaris/controlador/UsuariControlador.java#L31-L35
 
 Finalmente, y en tercer lugar, dentro del archivo de configuración de springboot `application.properties` tenemos definida la conexión con la base de datos (línea 5) donde especificamos la IP y el puerto que nos da workbench para que Java se comunique con la base de datos, así como las credenciales de acceso a la misma:
 
-https://github.com/blackcub3s/pirApp/blob/d1638151838ee86981aaee82d9f4e0f3afe31bc5/APP%20WEB/__springboot__produccio__/app/src/main/resources/application.properties#L4-L8
+https://github.com/blackcub3s/miApp/blob/9d06a71d4e7966cfe74a9e770beeb251e6a7bb50/APP%20WEB/__springboot__produccio__/app/src/main/resources/application.properties#L4-L8
 
 
 > NOTA: Esta página es software propietario mio que no es de dominio público en tanto que forma parte de una idea de negocio, con lo cual solamente voy a mostrar una pequeña porción del mismo para demostrar un conocimiento generalista del framework springboot.
@@ -61,7 +61,7 @@ Este se puede entender del siguiente modo:
 
 La página inicial `pas1_landingSignUp.html` nos muestra una "landing page". 
 
-![pagina inicial netflix no cargó](https://github.com/blackcub3s/pirApp/blob/62e05ecc660f37a103c6e3e23c413e0132cd56a0/SISTEMA%20LOGIN%20REPLICAT%20DE%20NETFLIX/pas1_landingSignUp.PNG)
+![pagina inicial netflix no cargó](https://github.com/blackcub3s/miApp/blob/9d06a71d4e7966cfe74a9e770beeb251e6a7bb50/SISTEMA%20LOGIN%20REPLICAT%20DE%20NETFLIX/pas1_landingSignUp.PNG)
 
 Nuestra página replicada tiene este aspecto:
 
