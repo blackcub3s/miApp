@@ -50,37 +50,39 @@ Este se puede entender del siguiente modo:
 
 ## 3.1 Página inicial (landing page)
 
-La página inicial `pas1_landingSignUp.html` nos muestra una "landing page". 
+La página inicial de netflix, a la que denominamos, `pas1_landingSignUp.html` nos muestra la siguiente "landing page": 
 
 ![pagina inicial netflix no cargó](https://github.com/blackcub3s/miApp/blob/9d06a71d4e7966cfe74a9e770beeb251e6a7bb50/SISTEMA%20LOGIN%20REPLICAT%20DE%20NETFLIX/pas1_landingSignUp.PNG)
 
-Nuestra página replicada tiene este aspecto:
+Nuestra página replicada [pas1_landingSignUp_.html](/imatges%20replica/pas1_landingSignUp_.png) tiene este aspecto:
 
 ![replica pagina inicial netflix no cargó](https://github.com/blackcub3s/miApp/blob/609d440db083e853ea9a6000fa0ba83d4d0905b9/imatges%20replica/pas1_landingSignUp_.png)
 
-Lo más importante que tiene es el botón de iniciar sesión en la parte superior derecha y el formulario para mandar el correo y registrarse en caso que un usuario no lo esté. Nos centraremos únicamente en este último aspecto: el formulario de registro.
+Lo más importante que tiene es el botón de iniciar sesión en la parte superior derecha y el formulario para mandar el correo y registrarse en caso que un usuario no lo esté. En este repositorio nos centraremos **únicamente** en este último aspecto: el formulario de registro. Con ello será suficiente para hacer una pequeña, pero exhaustiva, primera aproximación al framework Springboot.
 
-Pero para entender los apartados 3.1.1 a 3.1.4, en donde desgranamos los distintos tipos de clases que escribimos en un proyecto springboot, deberemos tener en mente el siguiente esquema y el concepto "inyección de dependencias":
+Desgranaré, en los subapartados 3.1.1 a 3.1.4, los distintos tipos de clases que hay que escribir en un proyecto springboot. Para ello, deberemos tener en mente el siguiente esquema y el concepto de "inyección de dependencias" que también explicaremos después y que es fundamental para entender como pasa información de una clase a la otra:
 
-Es importante que el lector entienda que se programa primero la clase Usuari.java, luego UsuariRepositori.java, luego UsuariService.java y luego UsuariController.java. Pero para entenderlo y explicarlo procederé en orden inverso porque es mucho más sencillo, en mi opinión, de trasmitir al lector:
+>**INSERTAR IMATGE D'ESQUEMA COMPLETAT**
 
-**INSERTAR IMATGE D'ESQUEMA COMPLETAT**
-
+Es importante que el lector entienda que cuando se programa un backend en springboot primero vamos a hacer la clase Usuari.java, luego UsuariRepositori.java, luego UsuariService.java y luego UsuariController.java. Sin embargo, en cada uno de los cuatro subapartados siguientes se desgrana cada una de estas clases en orden inverso (empezando por el último, el controller). Bajo mi punto de vista, es más sencillo de entender si se hace de este modo:
 
 
 ## 3.1.1 del front-end al back-end: definición de endpoints (clase "controller"), puertos y conexión con bbdd
 
-Así las cosas, cuando un usuario introduce su correo en el formulario de registro y le da al botón de registro esto va a mandar el correo desde el frontend al endpoint del backend -el endpoint está en la línea 171- dentro del _cuerpo_ o body de la solicitud mediante un JSON del estilo `{"email":"asd@ijk.com"}`:
+Cuando un usuario introduce su correo en el formulario de registro y le da al botón de registro esto va a mandar el correo desde el front-end a un endpoint de la API REST del backend -en este caso, el endpoint está en la línea 171-, pasándose este dentro del _cuerpo_ o body de la solicitud POST mediante formato JSON; en este caso particular, pongamos que será así: `{"email":"asd@ijk.com"}`:
 
 https://github.com/blackcub3s/miApp/blob/9d06a71d4e7966cfe74a9e770beeb251e6a7bb50/APP%20WEB/__frontend__produccio__/landingPage/pas1_landingSignUp.html#L171-L177
 
-Asimismo, y en segundo lugar, dentro del back-end de springboot queremos exponer al front-end el *endpoint* correspondiente para recibir el cuerpo de esta solicitud. Los distintos endpoints en springboot (y probablemente en otros frameworks de backend) los endpoints los vamos a definir dentro de lo que llaman una clase "controller" o controlador. En este caso, la clase controlador que nos ocupa está en el archivo `UsuariControlador.java`, en donde tenemos especificado que se permite el acceso cruzado desde la IP loopback y el puerto 5500 (el front-end de vscode). Por ejemplo, la solicitud POST anterior será recogida por el endpoint del backend `localhost/api/usuariExisteix` y luego será resuelta con una petición de vuelta con información en el cuerpo de la solicitud POST[^3] (que explicaremos más en detalle en los siguientes apartados). Fijaros que tenemos la seguridad en mente, ya que solo se permitirá que el servidor acepte la petición una IP y puerto concretos: los que se especifican con la la anotación de java @CrossOrigin de dentro del controlador del back-end (véase la línea 33) del archivo donde se define, a continuación:
+Asimismo, dentro del back-end de springboot queremos exponer al front-end el *endpoint* correspondiente para recibir el cuerpo de esta solicitud. Los distintos endpoints en springboot (y probablemente en otros frameworks de back-end) van a ser definidos dentro de lo que llaman una clase "controller" o controlador. En este caso, la clase controlador que nos ocupa está en el archivo `UsuariControlador.java`, en donde tenemos especificado que -por seguridad- SOLO se permite el acceso cruzado desde la IP loopback y el puerto 5500 (básicamente, el front-end de vscode). 
 
-https://github.com/blackcub3s/miApp/blob/9d06a71d4e7966cfe74a9e770beeb251e6a7bb50/APP%20WEB/__springboot__produccio__/app/src/main/java/pirapp/app/Usuaris/controlador/UsuariControlador.java#L31-L35
+Siguiendo con el ejemplo anterior, la solicitud POST (que lleva `{"email":"asd@ijk.com"}` en el cuerpo) hecha desde el frontend será recogida en formato JSON por el endpoint del backend (`localhost/api/usuariExisteix`). Acto seguido, ésta será resuelta con una petición de vuelta, también en formato JSON, por la función `verificarUsuari` con información en el cuerpo de la respuesta de la solicitud POST: es decir, ahora el cliente recibirá en nuestro código javascript un  `{existeixUsuari: false}`, ya que el usuario de correo `asd@ijk.com` no existe en la base de datos de usuarios-. Fijaros bien en la anotación @CrossOrigin de la línea 33, en donde definimos la IP del front-end desde donde se permite que nos manden datos:
 
-Finalmente, y en tercer lugar, dentro del archivo de configuración de springboot `application.properties` tenemos definida la conexión con la base de datos (línea 5) donde especificamos la IP y el puerto que nos da workbench para que Java se comunique con la base de datos, así como las credenciales de acceso a la misma:
+https://github.com/blackcub3s/miApp/blob/9d06a71d4e7966cfe74a9e770beeb251e6a7bb50/APP%20WEB/__springboot__produccio__/app/src/main/java/pirapp/app/Usuaris/controlador/UsuariControlador.java#L31-L52
 
-https://github.com/blackcub3s/miApp/blob/9d06a71d4e7966cfe74a9e770beeb251e6a7bb50/APP%20WEB/__springboot__produccio__/app/src/main/resources/application.properties#L4-L8
+
+Finalmente hay que mencionar que la base de datos también se especifica en el proyecto. Especificamos su puerto e ip dentro del archivo application.properties (esto será de relevancia para entender luego como vinculamos la información de la base de datos con la clase Usuari).
+
+https://github.com/blackcub3s/miApp/blob/f2321cda760d75436d16658b72a4507e5701f507/APP%20WEB/__springboot__produccio__/app/src/main/resources/application.properties#L4-L8
 
 
 ## 3.1.2 definición de la clase "service" (la lógica de negocio)
@@ -133,4 +135,3 @@ Posar link a `pas2A_infoBenvinguda.html`
 
 [^2]: no es necesario configurar un servidor para correr los proyectos sino que podemos usar nuestro propio ordenador como si fuese un servidor -cuya IP será la de loopback y cada proyecto se expondrá en un puerto distinto que permitirá su comunicación con los demás.
 
-[^3]: En este caso particular que acabamos de mostrar, en el cuerpo de la respuesta de la solicitud POST se mandará del backend al frontend otro paquete de información en formato JSON (que, en este caso, será `{existeixUsuari: false}` ya que el usuario de correo `asd@ijk.com` no existe en la base de datos de usuarios):
