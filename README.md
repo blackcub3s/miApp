@@ -56,7 +56,7 @@ La página inicial `pas1_landingSignUp.html` nos muestra una "landing page".
 
 Nuestra página replicada tiene este aspecto:
 
-**INSERTAR IMATGE**
+
 
 Lo más importante que tiene es el botón de iniciar sesión en la parte superior derecha y el formulario para mandar el correo y registrarse en caso que un usuario no lo esté. Nos centraremos únicamente en este último aspecto: el formulario de registro.
 
