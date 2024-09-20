@@ -24,7 +24,7 @@ Como se ha comentado cada uno de los tres proyectos necesita su propio puerto pa
 - 2. la base de datos corre en el puerto por defecto de mysql workbench, **3306** de la mencionada dirección.
 - 3. El backend de springboot corra en el puerto por defecto **8080**.
 
-En primer lugar, es importante que se respeten estos puertos porque en las distintas fetch-APIs del front-end apuntamos al puerto 8080. Por poner un ejemplo, esto lo podemos ver en la landing page cuando un usuario introduce su correo en el formulario y le da al botón de registro: esto va a mandar el correo desde el frontend al endpoint del backend -el endpoint está en la línea 172- mediante un json del estilo `{"email":"asd@ijk.com"}`:
+En primer lugar, es importante que se respeten estos puertos porque en las distintas fetch-APIs del front-end apuntamos al puerto 8080. Por poner un ejemplo, esto lo podemos ver en la landing page cuando un usuario introduce su correo en el formulario y le da al botón de registro: esto va a mandar el correo desde el frontend al endpoint del backend -el endpoint está en la línea 171- mediante un json del estilo `{"email":"asd@ijk.com"}`:
 
 https://github.com/blackcub3s/miApp/blob/9d06a71d4e7966cfe74a9e770beeb251e6a7bb50/APP%20WEB/__frontend__produccio__/landingPage/pas1_landingSignUp.html#L171-L177
 
