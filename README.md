@@ -60,11 +60,11 @@ Nuestra página replicada [pas1_landingSignUp_.html](/imatges%20replica/pas1_lan
 
 Lo más importante que tiene es el botón de iniciar sesión en la parte superior derecha y el formulario para mandar el correo y registrarse en caso que un usuario no lo esté. En este repositorio nos centraremos **únicamente** en este último aspecto: el formulario de registro. Con ello será suficiente para hacer una pequeña, pero exhaustiva, primera aproximación al framework Springboot.
 
-Desgranaré, en los subapartados 3.1.1 a 3.1.4, los distintos tipos de clases que hay que escribir en un proyecto springboot. Para ello, deberemos tener en mente el siguiente esquema y el concepto de "inyección de dependencias" que también explicaremos después y que es fundamental para entender como pasa información de una clase a la otra:
+Desgranaré, en los subapartados 3.1.1 a 3.1.4, los distintos tipos de clases que hay que escribir en un proyecto springboot. Para ello, deberemos tener en mente el siguiente esquema y el concepto de "inyección de dependencias" que también explicaremos después y que es fundamental para entender como pasa información de una clase de java a la otra dentro del mismo proyecto Springboot sin necesidad de instanciar un nuevo objeto dentro del constructor.
 
 >**INSERTAR IMATGE D'ESQUEMA COMPLETAT**
 
-Es importante que el lector entienda que cuando se programa un backend en springboot primero vamos a hacer la clase Usuari.java, luego UsuariRepositori.java, luego UsuariService.java y luego UsuariController.java. Sin embargo, en cada uno de los cuatro subapartados siguientes se desgrana cada una de estas clases en orden inverso (empezando por el último, el controller). Bajo mi punto de vista, es más sencillo de entender si se hace de este modo:
+Es importante que el lector entienda que cuando se programa un backend en springboot primero vamos a programar la clase Usuari.java, luego UsuariRepositori.java, luego UsuariService.java y luego UsuariController.java. Sin embargo, en cada uno de los cuatro subapartados siguientes se desgrana cada una de estas clases en orden inverso (empezando por el último, el controller). Bajo mi punto de vista, es más sencillo de entender si al lector se le presenta la información de este modo:
 
 
 ## 3.1.1 del front-end al back-end: definición de endpoints (clase "controller"), puertos y conexión con bbdd
@@ -86,6 +86,9 @@ https://github.com/blackcub3s/miApp/blob/f2321cda760d75436d16658b72a4507e5701f50
 
 
 ## 3.1.2 definición de la clase "service" (la lógica de negocio)
+
+**TO DO: Aqui parlar de la injeccio de dependencies i posar aquest link. Aixi el mateix objecte es comparteix per diferents instancies en comptes de haver d'instanciar de nou:**
+https://stackoverflow.com/questions/3386889/difference-between-creating-new-object-and-dependency-injection
 
 ## 3.1.3 definición de la clase "Respositori" (las consultas a la BBDD)
 
