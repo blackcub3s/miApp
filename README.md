@@ -14,9 +14,9 @@ Mostrar como se se ha efectuado el árbol de decisión que está marcado en colo
 
 Se recomienda al lector que, si quiere probar y ver la aplicación web con todas sus característica y en su totalidad, haga un clone del repositorio y abra cada uno de los tres proyectos con su editor correspondiente. De este modo cada editor expondrá una URL y un puerto en el mismo equipo[^2]. Los tres proyectos, pues, se recomiendan tratar con los siguientes editores:
 
-- [el frontend](/APP%20WEB/__frontend__produccio__/landingPage/) se recomienda abrirlo con el editor **vscode**, y ejecutar mediante la extensión live server la página [pas1_landingSignUp.html](/APP%20WEB/__frontend__produccio__/landingPage/pas1_landingSignUp.html).
-- [la base de datos](/___BBDD___/estructuraTaules/pirApp.sql) se aconseja abrirla y definir una conexión con la misma mediante el editor **mysql workbench**.
--  [el backend](/APP%20WEB/__springboot__produccio__/) se propone ejecturarlo mediante el editor de Java **IntelliJ idea**. Para hacerlo hay que buscar el archivo AppApplication.java, donde se situa la función main que activa todo el proyecto, y correrlo mediante "ctrl + shift + F10"
+- [el front-end](/APP%20WEB/__frontend__produccio__/landingPage/): se recomienda abrirlo con el editor `vscode`, y ejecutar la página [pas1_landingSignUp.html](/APP%20WEB/__frontend__produccio__/landingPage/pas1_landingSignUp.html) mediante la extensión "live server".
+- [la base de datos](/___BBDD___/estructuraTaules/pirApp.sql) se aconseja abrirla y definir una conexión con la misma mediante el editor `mysql workbench`.
+-  [el back-end](/APP%20WEB/__springboot__produccio__/) se propone ejecturarlo mediante el editor de Java `IntelliJ idea`. Para hacerlo hay que buscar el archivo AppApplication.java, donde se situa la función main que activa todo el proyecto, y correrlo mediante "ctrl + shift + F10"
 
 Como se ha comentado cada uno de los tres proyectos necesita su propio puerto para poder vivir en el localhost. Para que las los tres proyectos funcionen directamente sin hacer cambios en la configuración del front, back o sistema de gestión de la base de datos recomiendo al usuario que se asegure que:
 
