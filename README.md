@@ -119,7 +119,7 @@ Si prestáis antención, veréis que existe otra anotación denominada `@Param` 
 
 ## 3.1.4 definición de la clase "Usuari" (con el ORM o mapeado de objeto java a entidad de bbdd)
 
-Una de las cosas que implementa spring boot es la posibilidad de mapear tipos de datos o clases de Java con una tabla mysql mediante el uso de la anotación @Entity. Vamos a comparar el DDL de la tabla "usuari" de mySQL con la clase anotada con @Entity, que mapea a esa tabla.
+Una de las cosas que implementa spring boot es la posibilidad de mapear una clase de Java con una tabla mysql mediante el uso de la anotación @Entity. Vamos a comparar el DDL[^3] de la tabla "usuari" de mySQL con la clase anotada con @Entity, que mapea a esa tabla.
 
 Aquí tenemos la tabla en mySQL:
 
@@ -198,3 +198,4 @@ Existen `tres` formas de organizar un proyecto Springboot, cada una con sus vent
 
 [^2]: no es necesario configurar un servidor para correr los proyectos sino que podemos usar nuestro propio ordenador como si fuese un servidor -cuya IP será la de loopback y cada proyecto se expondrá en un puerto distinto que permitirá su comunicación con los demás.
 
+[^3]: DDL: Data Definition Language. Cuando tenemos una sentencia mySQL con create, forma parte del DDL.
