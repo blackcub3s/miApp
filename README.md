@@ -174,7 +174,21 @@ https://stackoverflow.com/questions/3386889/difference-between-creating-new-obje
 
 # 3.2 Existe correo (existe usuario)
 
-Si en el controlador del que hablamos en el apartado 3.1.1 recibimos via API REST un JSON del estilo `{"email":"acces@gmail.com"}`, y ese correo existe y además tiene acceso a recursos de la aplicación devuelve al frontend 
+Pongamos por caso que en el controlador del que hablamos en el apartado 3.1.1 recibimos via API REST un JSON del estilo `{"email":"acces@gmail.com"}`, ya que en la landing page el usuario ha introducido esto en el formulario:
+
+
+
+y ese correo existe en la tabla usuari y, además, tiene acceso a recursos de la aplicación nuestro frontend recibirá del servidor `{"existeixUsuari": true, "teAccesArecursos": true}` (se ha puesto el resultado con una alerta para demostrar lo que pasa por detrás).
+
+Esto permitirá que la aplicación dictamine que el usuario se ha "confundido" poniendo su correo en el campo de registro y, para permitir reconducirle, le mandará automáticamente a la página de login o iniciar sesion (la misma a la que se accede a la parte superior derecha). El correo electrónico pasará por el front-end via localstorage, como vemos en el código javascript:
+
+https://github.com/blackcub3s/miApp/blob/9d06a71d4e7966cfe74a9e770beeb251e6a7bb50/APP%20WEB/__frontend__produccio__/landingPage/pas1_landingSignUp.html#L191-L196
+
+Y se recogerá en la página de iniciar sesión si se da el caso:
+
+https://github.com/blackcub3s/miApp/blob/9d06a71d4e7966cfe74a9e770beeb251e6a7bb50/APP%20WEB/__frontend__produccio__/landingPage/pas2C_login.html#L27-L37
+
+
 
 ## 3.2.1 Usuario sí tiene acceso a recursos
 
