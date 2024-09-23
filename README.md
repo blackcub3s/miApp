@@ -153,11 +153,19 @@ https://github.com/blackcub3s/miApp/blob/c25ef5ba7e742f38300430c72d3f8f8357bb0dd
 
 ## 3.2 La inyección de dependencias
 
+Antes hemos visto que en la la clase controlador (UsuariControlador) llamamos una función de la clase servicio (UsuariServei). De forma análoga, dentro de la clase UsuariServei llamamos a una función de la clase UsuariRepositori. Por lo tanto, para conseguir hacer esto podríamos haber hecho nuestro programa de dos formas:
 
-> TODO:
-* Parlar de controlador i servei i de com injecten les dependencies dins amb autowired
-* TO DO: Aqui parlar de la injeccio de dependencies i posar aquest link. Aixi el mateix objecte es comparteix per diferents instancies en comptes de haver d'instanciar de nou:
+- **FORMA 1. instanciar objetos**: este es el método menos óptimo y requiere:
+    A. Instanciar dentro de la clase controlador una instancia u objeto de la clase servicio.
+    B. instanciar dentro de la clase servicio un objeto de la clase repositiorio.
 
+- **FORMA 2. inyectar dependencias**: Esta es la forma más correcta de desarrollar nuestra aplicación, porque permite facilitar los tests unitarios y hacer cambios en la clase dependiente sin tener que modificar código en la clases donde se inyecta la dependencia en cuestión. Este método requiere:
+
+    A. Vamos a la clase controlador e inyectamos un atributo de tipo "UsuariServei" (clase servicio) y, acto seguido, lo pasamos por parámetro por el constructor de la clase controlador con la anotación @Autowired. 
+    B. Vamos a la clase servicio e inyectamos un atributo de tipo "UsuariRepositori". Luego lo pasamos por parámetro por el constructor de la clase servicio con la anotación `@Autowired`. Por ejemplo, en este último caso lo que hemos hecho ha sido esto:
+    https://github.com/blackcub3s/miApp/blob/2f730ce5c1b1c23a573ff47b9dc6b5fe194b09d8/APP%20WEB/__springboot__produccio__/app/src/main/java/miApp/app/Usuaris/servei/UsuariServei.java#L22-L33
+
+Para más información 
 https://stackoverflow.com/questions/3386889/difference-between-creating-new-object-and-dependency-injection
 
 
