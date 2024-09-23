@@ -119,13 +119,13 @@ Si prestáis antención, veréis que existe otra anotación denominada `@Param` 
 
 ## 3.1.4 definición de la clase "Usuari" (con el ORM o mapeado de objeto java a entidad de bbdd)
 
-Una de las cosas que implementa spring boot es la posibilidad de mapear una clase de Java con una tabla mysql mediante el uso de la anotación @Entity. Vamos a comparar el DDL[^3] de la tabla "usuari" de mySQL con la clase anotada con @Entity, que mapea a esa tabla.
+Una de las cosas que implementa spring boot es la posibilidad de mapear una clase de Java con una tabla mysql mediante el uso de la anotación `@Entity`. Vamos a comparar el DDL[^3] de la tabla "usuari" de mySQL con la clase anotada con `@Entity`, que mapea a esa tabla.
 
-Aquí tenemos la tabla en mySQL:
+Aquí tenemos la tabla usuari en mySQL:
 
 https://github.com/blackcub3s/miApp/blob/f9ada4be41a84beed2ae312fd33dbe4e6102975c/___BBDD___/estructuraTaules/pirApp.sql#L5-L13
 
-Aquí tenemos la @Entity:
+Aquí tenemos la clase Java que mapea a la tabla usuari de mySQL: 
 
 https://github.com/blackcub3s/miApp/blob/f9ada4be41a84beed2ae312fd33dbe4e6102975c/APP%20WEB/__springboot__produccio__/app/src/main/java/miApp/app/Usuaris/model/Usuari.java#L20-L42
 
