@@ -1,4 +1,4 @@
-# 1. Introducción
+# 0. Introducción
 
 En este repositorio muestro la parte inicial de un proceso de registro e iniciar sesión de una aplicación web que estoy haciendo. Con él pretendo mostrar al lector una guía generalista de como correr un proyecto de backend con springboot (framework de backend de java).
 
@@ -8,7 +8,7 @@ La gracia de la aplicación web que contiene este repositorio es que mediante el
 
 Además, la comunicación entre front-end y back-end la he realizado en todo caso mediante API (usaremos la interfaz nativa del navegador fetch-api en el front-end para que este pueda "consumir" los endpoints que nos proporciona la rest-api del backend). En todo caso se ha seguido en la medida de lo posible los principios REST (véase nota al pie[^1]). Así pues, debe quedar claro que el back-end, el front-end son dos proyectos separados que estan en comunicación entre ellos y que el back-end, además, se comunicará con la base de datos que será un tercer proyecto. Así pues, la ventaja de hacerlo así es que se podría reescribir, por ejemplo, el proyecto front-end en otra tecnología basada en componentes (por ejemplo Angular, React o Vue) sin tener que modificar el backend, o incluso podría usarse este backend para permitir que los endpoints sean consumidos por otras aplicación además del front-end web: por ejemplo, una aplicación en android.
 
-# 2. Objetivo
+# 1. Objetivo
 
 Mostrar una pequeña porción del software de un proyecto mio (que es software propietario, así que no está mostrado aquí en su totalidad) para demostrar que he adquirido un conocimiento generalista del framework Springboot a reclutadores; y, también, para que cualquier persona que quiera empezar a desarrollar backend con este framework de Java tenga una guía para poder a empezar a dar sus primeros pasos.
 
@@ -17,7 +17,7 @@ Para enseñar como funciona springboot voy a describir de forma pormenorizada la
 Finalmente, mencionar que no se comentarán aspectos de los estilos del frontend aunque si el lector tiene preguntas puede escribirme por linkedin y preguntar lo que desee.
 
 
-# 3. Recomendaciones para ejecutar el proyecto
+# 2. Recomendaciones para ejecutar el proyecto
 
 Se recomienda al lector que, si quiere probar y ver la aplicación web con todas sus característica y en su totalidad, haga un clone del repositorio y abra cada uno de los tres proyectos con su editor correspondiente. De este modo cada editor expondrá una URL y un puerto en el mismo equipo[^2]:
 
@@ -107,22 +107,28 @@ Bien, y después de esto nos preguntaremos... ¿Y dónde están las consultas a 
 https://github.com/blackcub3s/miApp/blob/9d06a71d4e7966cfe74a9e770beeb251e6a7bb50/APP%20WEB/__springboot__produccio__/app/src/main/java/pirapp/app/Usuaris/servei/UsuariServei.java#L38
 
 
-## 3.1.3 definición de la clase "Respositori" (las consultas a la BBDD)
+## 3.1.3 definición de la clase "repository" (las consultas a la BBDD)
 
-La clase `UsuariRepositori.java` del inglés "repository" implementa una interfaz que hereta (de ahí la palabra `extends`) la clase JpaRepository. En esta clase es donde pondremos las queries o las consultas con lenguaje mySQL (si no queremos hacerlo en determinados casos podremos evitarlo porque ya hay funciones predefinidas dentro de JpaRepository que permiten solucionar peticiones ordinarias y frecuentes en bbdd). Estas queries se especifican mediante la anotación Java `@Query` encima de las cabeceras de las funciones. Cada una de estas funciones no va a tener cuerpo, y solamente va a actuar como un sistema para pasar valores por parámetro a la query mysql y va a devolver el resultado de la query o consulta con el tipo de datos que especifiquemos para el return.
+La clase `UsuariRepositori.java` (en el título, "repository" del inglés) implementa una interfaz que hereta (de ahí la palabra `extends`) de la clase JpaRepository. En esta clase `UsuariRepositori` es en donde escribiremos las consultas con lenguaje mySQL (si no queremos escribir estas consultas, en determinados casos podremos evitarlo porque ya hay funciones predefinidas dentro de JpaRepository; funciones que permiten solucionar peticiones ordinarias y frecuentes en bbdd). Estas queries se especifican mediante la anotación Java `@Query` encima de las cabeceras de las funciones. Cada una de estas funciones no va a tener cuerpo, y solamente va a actuar como un sistema para pasar valores por parámetro a la query mysql y va a devolver el resultado de la query o consulta con el tipo de datos que especifiquemos para el return.
 
 
-Así las cosas, aquí tenemos la función `trobaStringUsuariPerCorreu(eMail)` de la que hemos hablado al final del apartado anterior:
+Así las cosas, aquí tenemos la función del "repository" `trobaStringUsuariPerCorreu(eMail)`, de la que hemos hablado al final del apartado anterior:
 
 https://github.com/blackcub3s/miApp/blob/9d06a71d4e7966cfe74a9e770beeb251e6a7bb50/APP%20WEB/__springboot__produccio__/app/src/main/java/pirapp/app/Usuaris/repositori/UsuariRepositori.java#L27-L28
 
+Si prestáis antención, veréis que existe otra anotación denominada @Param y que esta anotación toma el parámetro "emailete". Asimismo, el valor que se parsa en la query mysql es ":emailete" y no "eMail" como se especifica en el parámetro de entrada de la función. Esto es porque hacer la consulta mysql a través de la anotación @Param ayuda a protegernos contra ciberataques como, por ejemplo, la inyección de mysql -no queremos que ningún usuario ponga consultas sql en donde deberían haber valores, verdad?-.
 
-**TO DO: Aqui parlar de la injeccio de dependencies i posar aquest link. Aixi el mateix objecte es comparteix per diferents instancies en comptes de haver d'instanciar de nou:**
-https://stackoverflow.com/questions/3386889/difference-between-creating-new-object-and-dependency-injection
 
 ## 3.1.4 definición de la clase "Usuari" (con el ORM o mapeado de objeto java a entidad de bbdd)
 
 
+## 3.2 La inyección de dependencias
+
+> TODO:
+* Parlar de controlador i servei i de com injecten les dependencies dins amb autowired
+* TO DO: Aqui parlar de la injeccio de dependencies i posar aquest link. Aixi el mateix objecte es comparteix per diferents instancies en comptes de haver d'instanciar de nou:
+
+https://stackoverflow.com/questions/3386889/difference-between-creating-new-object-and-dependency-injection
 
 
 
