@@ -91,20 +91,34 @@ https://github.com/blackcub3s/miApp/blob/f2321cda760d75436d16658b72a4507e5701f50
 
 ## 3.1.2 La clase "service" (la lógica de negocio)
 
-Si nos hemos fijado en el subapartado anterio, la clase controlador anterior llamaba a una función de un objecto de tipo "UsuariServei":
+Si nos hemos fijado en el subapartado anterior, habremos visto que la clase controlador llamaba a una función de un objecto "serveiUPP", de tipo "UsuariServei":
 
 https://github.com/blackcub3s/miApp/blob/9d06a71d4e7966cfe74a9e770beeb251e6a7bb50/APP%20WEB/__springboot__produccio__/app/src/main/java/pirapp/app/Usuaris/controlador/UsuariControlador.java#L39
 
-Esta función pertenece a la clase usuariServei (es una clase "service" o "servicio", en castellano) que en esencia lo que hace es implementar la lógica de negocio de nuestra app. Cómo vamos a obtener el booleano que nos permite determinar si un usuario está registrado? Pues en la capa "service" esta función tiene esta estructura:
+Vamos ahora a ver el cuerpo de esta función en la clase usuariServei (clase "service" o "servicio") que en esencia lo que hace es implementar la lógica de negocio de nuestra app. Cómo vamos a obtener el booleano que nos permite determinar si un usuario está registrado? Pues así:
 
 https://github.com/blackcub3s/miApp/blob/9d06a71d4e7966cfe74a9e770beeb251e6a7bb50/APP%20WEB/__springboot__produccio__/app/src/main/java/pirapp/app/Usuaris/servei/UsuariServei.java#L35-L41
 
-En esencia lo que hacemos en esta función es obtener
+En esencia lo que hacemos en la función `usuariRegistrat(String eMail)` es pasar como parámetro el mail que hemos obtenido desde el controlador (que de hecho proviene en primera instancia del formulario de entrada del usuario) y ver si este mail se encuentra en la base de datos de usuarios. Si lo encuentra en la bbdd -es decir, el usuario ya estaba registrado en la tabla de usuarios- la variable `mailUsuari` tendrá un string dentro. En caso que no -usuario no registrado-, entonces podremos usar el tipo "Optional" para evitar errores (dado que no devolverá ningun resultado la consulta a la base de datos). Finalemnte el juicio de si existe en base a esta lógica lo efectuamos en el return (con mailUsuari.isPresent()) que es una función va en tandem con el tipo Optional<String>.
+
+Bien, y después de esto nos preguntaremos... Y dónde están las consultas a la base de datos? Porque estamos haciendo consultas en una base de datos, verdad? Pues sí, eston nos lleva a hablar de la siguiente clase: la clase repositiorio:
+
+
+
+
+## 3.1.3 definición de la clase "Respositori" (las consultas a la BBDD)
+
+La clase `UsuariRepositori.java` del inglés "repository" es donde ponemos las queries o las consultas con lenguaje mySQL. SpringBoot permite que, en determinados casos, no tengamos que escribir el lenguaje SQL; pero si deseamos especificar las consultas explícitamente por legibilidad o porque no encontramos una función de JPA que nos deje hacerlas, lo podemos hacer con la anotación @Query. Para el caso que nos ocupa, de nuevo, recordemos que en la función que hemos mostrado en el apartado anterio, en el "service", estamos a su vez llamando una función "trobaStringUsuariPerCorreu" a una variable denominada "repoUsuari" que es de tipo "UsuariRepositori":
+
+https://github.com/blackcub3s/miApp/blob/9d06a71d4e7966cfe74a9e770beeb251e6a7bb50/APP%20WEB/__springboot__produccio__/app/src/main/java/pirapp/app/Usuaris/servei/UsuariServei.java#L38C26-L38C37
+
+Pues es justamente esta función donde JPA nos hace la query:
+
+https://github.com/blackcub3s/miApp/blob/9d06a71d4e7966cfe74a9e770beeb251e6a7bb50/APP%20WEB/__springboot__produccio__/app/src/main/java/pirapp/app/Usuaris/repositori/UsuariRepositori.java#L25-L28
+
 
 **TO DO: Aqui parlar de la injeccio de dependencies i posar aquest link. Aixi el mateix objecte es comparteix per diferents instancies en comptes de haver d'instanciar de nou:**
 https://stackoverflow.com/questions/3386889/difference-between-creating-new-object-and-dependency-injection
-
-## 3.1.3 definición de la clase "Respositori" (las consultas a la BBDD)
 
 ## 3.1.4 definición de la clase "Usuari" (con el ORM o mapeado de objeto java a entidad de bbdd)
 
