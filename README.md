@@ -171,8 +171,7 @@ https://stackoverflow.com/questions/3386889/difference-between-creating-new-obje
 >NOTA: Existe la inyección de dependencias por campo en lugar de la inyección de dependencias por constructor (pondríamos autowired directamente encima del atributo de la clase). Sin embargo, esta es menos recomendada.
 
 
-
-# 3.2 Existe correo (existe usuario)
+# 3.2 Existe correo de usuario y usuario tiene acceso a recursos
 
 Pongamos por caso que en el controlador del que hablamos en el apartado 3.1.1 recibimos via API REST un JSON del estilo `{"email":"acces@gmail.com"}`, ya que en la landing page el usuario ha introducido esto en el formulario:
 
@@ -196,15 +195,13 @@ Mostrándose así:
 
 
 
-## 3.2.1 Usuario sí tiene acceso a recursos
 
-Posar link a `pas2C_login.html`
 
-## 3.2.2 Usuario no tiene acceso a recursos
+# 3.3 Existe correo de usuario y usuario MOT tiene acceso a recursos
 
 Posar link a `pas2B_introduirContrasneya.html` 
 
-# 3.3 No existe correo (no existe usuario)
+# 3.4 No existe correo (no existe usuario)
 
 Posar link a `pas2A_infoBenvinguda.html`
 
