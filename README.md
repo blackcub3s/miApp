@@ -104,7 +104,7 @@ En esencia lo que hacemos en la función `usuariRegistrat(String eMail)` es pasa
 Bien, y después de esto nos preguntaremos... ¿Y dónde están las consultas a la base de datos? Porque bien que estamos haciendo consultas en una base de datos... ¿verdad? Pues esto nos lleva a hablar en el siguiente subapartado de la clase repositiorio y llegamos a ella ya que en la función de la clase "service" de la que hemos hablado tenemos una llamada al objeto "repoUsuari" que pertenece a la clase UsuariRepositori.java:
 
 
-https://github.com/blackcub3s/miApp/blob/9d06a71d4e7966cfe74a9e770beeb251e6a7bb50/APP%20WEB/__springboot__produccio__/app/src/main/java/pirapp/app/Usuaris/servei/UsuariServei.java#L38C26-L38C37
+https://github.com/blackcub3s/miApp/blob/9d06a71d4e7966cfe74a9e770beeb251e6a7bb50/APP%20WEB/__springboot__produccio__/app/src/main/java/pirapp/app/Usuaris/servei/UsuariServei.java#L38
 
 
 ## 3.1.3 definición de la clase "Respositori" (las consultas a la BBDD)
