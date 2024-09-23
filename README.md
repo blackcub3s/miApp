@@ -176,17 +176,23 @@ https://stackoverflow.com/questions/3386889/difference-between-creating-new-obje
 
 Pongamos por caso que en el controlador del que hablamos en el apartado 3.1.1 recibimos via API REST un JSON del estilo `{"email":"acces@gmail.com"}`, ya que en la landing page el usuario ha introducido esto en el formulario:
 
-![asd](/img/correuAmbAccesLanding.png)
+![no se mostro iniciar sesión landing](/img/correuAmbAccesLanding.png)
 
-y ese correo existe en la tabla usuari y, además, tiene acceso a recursos de la aplicación nuestro frontend recibirá del servidor `{"existeixUsuari": true, "teAccesArecursos": true}` (se ha puesto el resultado con una alerta para demostrar lo que pasa por detrás).
+Pongamos por caso también que ese correo existe en la tabla usuari y que, además, el usuario que controla esta cuenta de correo tiene acceso a recursos de nuestra aplicación. Si este es el caso el back-end aplicará la lógica de negocio previamente mencionada en el apartado 3.1 y subapartados 3.1.1 a 3.1.4 y conseguirá que nuestro front-end reciba del servidor `{"existeixUsuari": true, "teAccesArecursos": true}` (si el lector quiere probar la aplicación verá como se imprime la consulta al endpoint con una alerta -esto en producción no se imprimiría-).
 
-Esto permitirá que la aplicación dictamine que el usuario se ha "confundido" poniendo su correo en el campo de registro y, para permitir reconducirle, le mandará automáticamente a la página de login o iniciar sesion (la misma a la que se accede a la parte superior derecha). El correo electrónico pasará por el front-end via localstorage, como vemos en el código javascript:
+Al obtener este objeto javascript en el frontend (que previamente era un Hashmap en el back-end de java por cierto, pero la API REST y JSON permite que pasemos información entre distintos lenguajes aprovechando que tienen tipos de objetos  similares) permitirá que la aplicación dictamine que el usuario se ha "confundido" poniendo su correo en el campo de registro y, para permitir reconducirle, le mandará automática y directamente a la página de login o iniciar sesion (la misma a la que se accede a la parte superior derecha). 
+
+Para que el usuario no se moleste en reintroducir el correo electrónico en el campo de correo de la pantalla de [iniciar sesión](/APP%20WEB/__frontend__produccio__/landingPage/pas2C_login.html), este correo pasará por el front-end via localstorage, como vemos en el código javascript:
 
 https://github.com/blackcub3s/miApp/blob/9d06a71d4e7966cfe74a9e770beeb251e6a7bb50/APP%20WEB/__frontend__produccio__/landingPage/pas1_landingSignUp.html#L191-L196
 
-Y se recogerá en la página de iniciar sesión si se da el caso:
+Y se recogerá en la página de [iniciar sesión](/APP%20WEB/__frontend__produccio__/landingPage/pas2C_login.html) en la siguientes líneas de código:
 
 https://github.com/blackcub3s/miApp/blob/9d06a71d4e7966cfe74a9e770beeb251e6a7bb50/APP%20WEB/__frontend__produccio__/landingPage/pas2C_login.html#L27-L37
+
+Mostrándose así:
+
+![no se mostró imagen iniciar sesion](/img/correuAmbAccesLogin.png)
 
 
 
