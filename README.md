@@ -46,7 +46,7 @@ Este se puede entender del siguiente modo:
 1. Cada paralelogramo de color naranja es una página estática html de nuestro proyecto.
 2. Cada rombo de fondo amarillo es una decisión que se hará dentro del backend de springboot, dado que requiere hacer consultas a la BBDD y contiene datos sensibles.
 3. Los rombos de fondo azul se decidirán en el front-end en tanto que sus decisiones no requieran consultar información personal en la base de datos y no requerirán, por lo tanto, de uso del back-end.
-4. El paréntesis que incluye la extensión de una URL debajo de cada paralelogramo naranja es cada página de netflix cuyo comportamiento y, en menor medida, aspecto, se ha intentado replicar en el archivo html del rombo que está contiguo. Por ejemplo el archivo html `pas2A_infoBenvinguda.html` de mi proyecto es una réplica de la página especificada en el paréntesis `netflix.com/signup/registration` y el usuario llegará a ella gracias a hacer una misma lógica de backend que la que usa netflix. 
+4. El paréntesis que incluye la extensión de una URL debajo de cada paralelogramo naranja es cada página de netflix cuyo comportamiento y, en menor medida, aspecto, se ha intentado replicar en el archivo html del rombo que está contiguo. Por ejemplo el archivo html `pas2A_infoBenvinguda.html` de mi proyecto es una réplica de la página especificada en el paréntesis `netflix.com/signup/registration` y el usuario llegará a ella gracias a aplicar una lógica de backend similar a la que usa Netflix. 
 
 
 >⚠️ **NOTA**: es muy importante hacer notar que las consultas de datos personales a la base de datos -correos y contraseñas- no se deben hacer desde el frontend, porque los archivos del frontend son públicos para el usuario y podrían exponer los datos de los usuarios en la base de datos a vulnerabilidades.
@@ -64,14 +64,14 @@ Nuestra página replicada [pas1_landingSignUp_.html](/img/pas1_landingSignUp_.pn
 
 Lo más importante que tiene es el botón de iniciar sesión en la parte superior derecha y el formulario para mandar el correo y registrarse en caso que un usuario no lo esté. En este repositorio nos centraremos **únicamente** en este último aspecto: el formulario de registro. Con ello será suficiente para hacer una pequeña, pero exhaustiva, primera aproximación al framework Springboot.
 
-Desgranaré, en los subapartados 3.1.1 a 3.1.4, los distintos tipos de clases que hay que escribir en un proyecto springboot para conseguir obtener el comportamiento del [diagrama de flujo](#Diagrama-de-flujo) pintado en rosa, que es el que muestra la estructura del proyecto. Para ello, deberemos tener en mente el siguiente esquema y el concepto de "inyección de dependencias" que también explicaremos después y que es fundamental para entender como pasa información de una clase de java a la otra dentro del mismo proyecto Springboot sin necesidad de instanciar un nuevo objeto dentro del constructor. Si al usuario le interesa por qué hemos escogido este tipo de organización (by feature y by layer -por característica y capa-, en lugar de el esquema by feature a secas o by layer a secas puede consultar el [Anexo](#Anexo))
+Desgranaré, en los subapartados 3.1.1 a 3.1.4, los distintos tipos de clases que hay que escribir en un proyecto Springboot para conseguir obtener el comportamiento del [diagrama de flujo](#Diagrama-de-flujo) pintado en rosa, que es el que muestra la estructura del proyecto. Para ello, deberemos tener en mente el siguiente esquema y el concepto de "inyección de dependencias" que también explicaremos en los próximos apartados y que es fundamental para entender como se pasa información de una clase de java a la otra dentro del mismo proyecto Springboot sin necesidad de instanciar un nuevo objeto dentro del constructor de cada clase que depende de otra. Si al usuario le interesa por qué hemos escogido este tipo de organización (`by feature y by layer` -por característica y capa-, en lugar del esquema `by feature`a secas o `by layer` a secas puede consultar el [Anexo](#Anexo)).
 
 ![esquema estructura byFeature byLayer no ha carregat](/img/byFeatureByLayer.jpeg)
 
-Es importante que el lector entienda que cuando se programa un backend en springboot primero vamos a programar la clase Usuari.java, luego UsuariRepositori.java, luego UsuariService.java y luego UsuariController.java. Sin embargo, en cada uno de los cuatro subapartados siguientes se desgrana cada una de estas clases en orden inverso (empezando por el último, el controller). Bajo mi punto de vista, es más sencillo de entender si al lector se le presenta la información de este modo:
+Es importante que el lector entienda que cuando se programa un back-end en Springboot primero vamos a programar la clase Usuari.java, luego UsuariRepositori.java, luego UsuariServei.java y luego UsuariControlador.java. Sin embargo, en cada uno de los cuatro subapartados siguientes se desgrana cada una de estas clases en orden inverso (empezando por el último, el controller). Bajo mi punto de vista, es más sencillo de entender si al lector se le presenta la información de este modo:
 
 
-## 3.1.1 del front-end al back-end: definición de endpoints (clase "controller"), puertos y conexión con bbdd
+## 3.1.1 del front-end al back-end y viceversa: definición de endpoints (clase "controller"), puertos y conexión con bbdd
 
 Cuando un usuario introduce su correo en el formulario de registro y le da al botón de registro esto va a mandar el correo desde el front-end a un endpoint de la API REST del backend -en este caso, el endpoint está en la línea 171-, pasándose este dentro del _cuerpo_ o body de la solicitud POST mediante formato JSON; en este caso particular, pongamos que será así: `{"email":"asd@ijk.com"}`:
 
@@ -89,7 +89,17 @@ Finalmente hay que mencionar que la base de datos también se especifica en el p
 https://github.com/blackcub3s/miApp/blob/f2321cda760d75436d16658b72a4507e5701f507/APP%20WEB/__springboot__produccio__/app/src/main/resources/application.properties#L4-L8
 
 
-## 3.1.2 definición de la clase "service" (la lógica de negocio)
+## 3.1.2 La clase "service" (la lógica de negocio)
+
+Si nos hemos fijado en el subapartado anterio, la clase controlador anterior llamaba a una función de un objecto de tipo "UsuariServei":
+
+https://github.com/blackcub3s/miApp/blob/9d06a71d4e7966cfe74a9e770beeb251e6a7bb50/APP%20WEB/__springboot__produccio__/app/src/main/java/pirapp/app/Usuaris/controlador/UsuariControlador.java#L39
+
+Esta función pertenece a la clase usuariServei (es una clase "service" o "servicio", en castellano) que en esencia lo que hace es implementar la lógica de negocio de nuestra app. Cómo vamos a obtener el booleano que nos permite determinar si un usuario está registrado? Pues en la capa "service" esta función tiene esta estructura:
+
+https://github.com/blackcub3s/miApp/blob/9d06a71d4e7966cfe74a9e770beeb251e6a7bb50/APP%20WEB/__springboot__produccio__/app/src/main/java/pirapp/app/Usuaris/servei/UsuariServei.java#L35-L41
+
+En esencia lo que hacemos en esta función es obtener
 
 **TO DO: Aqui parlar de la injeccio de dependencies i posar aquest link. Aixi el mateix objecte es comparteix per diferents instancies en comptes de haver d'instanciar de nou:**
 https://stackoverflow.com/questions/3386889/difference-between-creating-new-object-and-dependency-injection
