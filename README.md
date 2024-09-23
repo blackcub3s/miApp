@@ -176,7 +176,7 @@ https://stackoverflow.com/questions/3386889/difference-between-creating-new-obje
 
 Pongamos por caso que en el controlador del que hablamos en el apartado 3.1.1 recibimos via API REST un JSON del estilo `{"email":"acces@gmail.com"}`, ya que en la landing page el usuario ha introducido esto en el formulario:
 
-
+![asd](/img/correuAmbAccesLanding.png)
 
 y ese correo existe en la tabla usuari y, además, tiene acceso a recursos de la aplicación nuestro frontend recibirá del servidor `{"existeixUsuari": true, "teAccesArecursos": true}` (se ha puesto el resultado con una alerta para demostrar lo que pasa por detrás).
 
