@@ -71,7 +71,7 @@ Desgranaré, en los subapartados 3.1.1 a 3.1.4, los distintos tipos de clases qu
 Es importante que el lector entienda que cuando se programa un back-end en Springboot primero vamos a programar la clase Usuari.java, luego UsuariRepositori.java, luego UsuariServei.java y luego UsuariControlador.java. Sin embargo, en cada uno de los cuatro subapartados siguientes se desgrana cada una de estas clases en orden inverso (empezando por el último, el controller). Bajo mi punto de vista, es más sencillo de entender si al lector se le presenta la información de este modo:
 
 
-## 3.1.1 del front-end al back-end y viceversa: definición de endpoints (clase "controller"), puertos y conexión con bbdd
+### 3.1.1 del front-end al back-end y viceversa: definición de endpoints (clase "controller"), puertos y conexión con bbdd
 
 Cuando un usuario introduce su correo en el formulario de registro y le da al botón de registro esto va a mandar el correo desde el front-end a un endpoint de la API REST del backend -en este caso, el endpoint está en la línea 171-, pasándose este dentro del _cuerpo_ o body de la solicitud POST mediante formato JSON; en este caso particular, pongamos que será así: `{"email":"asd@ijk.com"}`:
 
@@ -89,7 +89,7 @@ Finalmente hay que mencionar que la base de datos también se especifica en el p
 https://github.com/blackcub3s/miApp/blob/f2321cda760d75436d16658b72a4507e5701f507/APP%20WEB/__springboot__produccio__/app/src/main/resources/application.properties#L4-L8
 
 
-## 3.1.2 La clase "service" (la lógica de negocio)
+### 3.1.2 La clase "service" (la lógica de negocio)
 
 Si nos hemos fijado en el subapartado anterior, habremos visto que la clase controlador llamaba a una función de un objecto "serveiUPP", de tipo "UsuariServei":
 
@@ -107,7 +107,7 @@ Bien, y después de esto nos preguntaremos... ¿Y dónde están las consultas a 
 https://github.com/blackcub3s/miApp/blob/9d06a71d4e7966cfe74a9e770beeb251e6a7bb50/APP%20WEB/__springboot__produccio__/app/src/main/java/pirapp/app/Usuaris/servei/UsuariServei.java#L38
 
 
-## 3.1.3 definición de la clase "repository" (las consultas a la BBDD)
+### 3.1.3 definición de la clase "repository" (las consultas a la BBDD)
 
 La clase `UsuariRepositori.java` (en el título, "repository" del inglés) implementa una interfaz que hereta las funciones de la clase JpaRepository (de ahí la palabra `extends`). Es en `UsuariRepositori.java` en donde escribiremos las consultas con lenguaje mySQL que queramos lanzar sobre la tabla de usuarios (si no queremos escribir estas consultas, en determinados casos, podremos evitarlo porque ya hay funciones predefinidas dentro de JpaRepository que permiten solucionar peticiones frecuentes en bbdd). Estas queries se especifican mediante la anotación Java `@Query` encima de cada una de las cabeceras de las funciones que escribamos. Cada una de estas funciones no va a tener cuerpo en realidad, y su cabecera va a actuar como un sistema para pasar valores por parámetro a la query mysql, por un lado; y un sistema para devolver el resultado de la query o consulta con el tipo de datos que especifiquemos para el return, por el otro.
 
@@ -117,7 +117,7 @@ https://github.com/blackcub3s/miApp/blob/9d06a71d4e7966cfe74a9e770beeb251e6a7bb5
 
 Si prestáis antención, veréis que existe otra anotación denominada `@Param` y que esta anotación toma el parámetro "emailete". Asimismo, el valor que se pasa en la query mysql es el parámetro anterior con dos puntos delante (":emailete") y no tiene directamente el nombre "eMail" que proviene del parámetro de entrada de la función. Esto es porque hacer la consulta mysql a través de la anotación @Param ayuda a protegernos contra ciberataques como, por ejemplo, la inyección de mysql -no queremos que ningún usuario ponga consultas sql en donde deberían haber valores, verdad?-.
 
-## 3.1.4 definición de la clase "Usuari" (con el ORM o mapeado de objeto java a entidad de bbdd)
+### 3.1.4 definición de la clase "Usuari" (con el ORM o mapeado de objeto java a entidad de bbdd)
 
 Una de las cosas que implementa spring boot es la posibilidad de mapear una clase de Java con una tabla mysql mediante el uso de la anotación `@Entity`. Vamos a comparar el DDL[^3] de la tabla "usuari" de mySQL con la clase anotada con `@Entity`, que mapea a esa tabla.
 
@@ -129,7 +129,7 @@ Aquí tenemos la clase Java que mapea a la tabla usuari de mySQL:
 
 https://github.com/blackcub3s/miApp/blob/f9ada4be41a84beed2ae312fd33dbe4e6102975c/APP%20WEB/__springboot__produccio__/app/src/main/java/miApp/app/Usuaris/model/Usuari.java#L20-L42
 
-Es facil ver que cada atributo java simplemente está mapeando cada columna de la tabla. Por ello, si hacemos una instancia de esa clase Java, tendremos simplemente una fila de la tabla mysql usuari recogida en ese objeto.
+Es fácil ver que cada atributo java simplemente está mapeando cada columna de la tabla. Por ello, si hacemos una instancia de esa clase Java, tendremos simplemente una fila de la tabla mysql usuari recogida en ese objeto.
 
 Sin embargo, no todo el monte es orégano: Hay que especificar muchos detalles en el código Java y ser muy preciso para que el mapeo entre ambos funcione correctamente: 
 
@@ -151,7 +151,7 @@ https://github.com/blackcub3s/miApp/blob/c25ef5ba7e742f38300430c72d3f8f8357bb0dd
 > NOTA: Ya para terminar con el "model" es imporante especificar que las clases de java del model (es decir, las que tienen @Entity) nos permiten evitar escribir constructores con y sin parámetros, getters, setters, etc .(que es lo que hay que hacer cuando creamos una clase en java y que es tan mecánico que incluso editores como netbeans permiten generarlos automáticamente). En este caso, empero, tenemos una librería en springboot que se denomina `Lombok`. Esta librería no solo nos asiste como lo haría netbeans, sino mejor. De hecho permite escribir unas anotaciones que crean los constructores (@NoArgsConstructor, @AllArgsConstructor), y una sola anotación (@Data) que crea los getters y setters -y otros- sin que nosotros los veamos escritos, actualizándolos incluso si cambiamos nombres de atributos. Así se reduce escribir el código mecánico que caracteriza las clases de java (menos boilerplate es mejor) y, lo más importante, que nos olvidamos de mantenerlo también: si hacemos cambios en el nombre de un atributo java, por ejemplo, ya no tendremos que preocuparnos sobre cambiar el nombre del getter y setter para ese atributo (se hará de forma automática por parte de Lombok).
 
 
-## 3.1.5 La inyección de dependencias
+### 3.1.5 La inyección de dependencias
 
 Antes hemos visto que en la la clase controlador (UsuariControlador) llamamos una función de la clase servicio (UsuariServei). De forma análoga, dentro de la clase UsuariServei llamamos a una función de la clase UsuariRepositori. Por lo tanto, para conseguir hacer esto podríamos haber hecho nuestro programa de dos formas:
 
@@ -171,7 +171,7 @@ https://stackoverflow.com/questions/3386889/difference-between-creating-new-obje
 >NOTA: Existe la inyección de dependencias por campo en lugar de la inyección de dependencias por constructor (pondríamos autowired directamente encima del atributo de la clase). Sin embargo, esta es menos recomendada.
 
 
-# 3.2 Existe correo de usuario y usuario tiene acceso a recursos
+## 3.2 Existe correo de usuario y usuario tiene acceso a recursos
 
 Pongamos por caso que en el controlador del que hablamos en el apartado 3.1.1 recibimos via API REST un JSON del estilo `{"email":"acces@gmail.com"}`, ya que en la landing page el usuario ha introducido esto en el formulario:
 
@@ -197,11 +197,11 @@ Mostrándose así:
 
 
 
-# 3.3 Existe correo de usuario y usuario MOT tiene acceso a recursos
+## 3.3 Existe correo de usuario y usuario MOT tiene acceso a recursos
 
 Posar link a `pas2B_introduirContrasneya.html` 
 
-# 3.4 No existe correo (no existe usuario)
+## 3.4 No existe correo (no existe usuario)
 
 Posar link a `pas2A_infoBenvinguda.html`
 
