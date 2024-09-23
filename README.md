@@ -39,7 +39,7 @@ Como se ha comentado anteriormente, este sistema de registro y de iniciar sesió
 
 El diagrama de flujo del proyecto de este repositiorio es el siguiente:
 
-TO DO: POSAR IMATGE DIAGRAMA
+[TO DO: POSAR IMATGE DIAGRAMA]
 
 Este se puede entender del siguiente modo:
 
@@ -58,7 +58,7 @@ La página inicial de netflix, a la que denominamos, `pas1_landingSignUp.html` n
 
 ![pagina inicial netflix no cargó](https://github.com/blackcub3s/miApp/blob/9d06a71d4e7966cfe74a9e770beeb251e6a7bb50/SISTEMA%20LOGIN%20REPLICAT%20DE%20NETFLIX/pas1_landingSignUp.PNG)
 
-Nuestra página replicada [pas1_landingSignUp_.html](/imatges%20replica/pas1_landingSignUp_.png) tiene este aspecto:
+Nuestra página replicada [pas1_landingSignUp_.html](/img/pas1_landingSignUp_.png) tiene este aspecto:
 
 ![replica pagina inicial netflix no cargó](https://github.com/blackcub3s/miApp/blob/609d440db083e853ea9a6000fa0ba83d4d0905b9/imatges%20replica/pas1_landingSignUp_.png)
 
