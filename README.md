@@ -129,8 +129,25 @@ Aquí tenemos la clase Java que mapea a la tabla usuari de mySQL:
 
 https://github.com/blackcub3s/miApp/blob/f9ada4be41a84beed2ae312fd33dbe4e6102975c/APP%20WEB/__springboot__produccio__/app/src/main/java/miApp/app/Usuaris/model/Usuari.java#L20-L42
 
-Es facil ver que cada atributo java simplemente está mapeando cada columna de la tabla. I que si hacemos una instancia de esa clase, tendremos dentro de java una fila o instancia de la tabla mysql usuari.
+Es facil ver que cada atributo java simplemente está mapeando cada columna de la tabla. Por ello, si hacemos una instancia de esa clase Java, tendremos simplemente una fila de la tabla mysql usuari recogida en ese objeto.
 
+Sin embargo, no todo el monte es orégano: Hay que especificar muchos detalles en el código Java y ser muy preciso para que el mapeo entre ambos funcione correctamente: 
+
+* en primer lugar, cada Atributo Java requiere la anotación `@Column` en la que se va a especificar el nombre del campo en la base de datos dentro de la misma. 
+* En segundo lugar, en el DDL de mySql es importante seguir la notación `underscore_case` (nombre_variable), que es la que se pondrá como parámetro dentro de `@Column`.
+* En tercer lugar, hay que usar la nomenclatura `camelCase` para los atributos java (nombreVariable).
+* En cuarto lugar, si la columna de la tabla mySQL es NOT NULL, hay que poner el parámetro `nullable = false`
+* En quinto lugar, hay que vigilar con las correspondencias de tipos de datos de mySQL y tipos de datos reconocidos en Java y en JPA. El tipo de datos mySQL "tinyInt" usado en el campo `pla_suscripcio_anual` no existe en Java. Sin embargo, dado que un tinyInt ocupa 1 byte nos permite representar numeros desde el 0 a 7 (con tres bits) así que en este caso para mapear a "tinyInt" debemos usar "Byte". Las otras opciones de tipos recomendados por JPA realmente fallaron.
+* En sexto lugar, las relaciones entre tablas se pueden definir pero, en mi caso, han dado problemas así que las dejaré definidas dentro del código mysql y en la lógica de programación deberé gestionar plenamente de forma manual la inserción de datos en cada tabla.
+* En séptimo lugar, si tenemos una clave primaria hay que usar la anotación @Id porque si no lo hacemos cuando dentro de las clases repository o service, donde extendemos de JpaRepository nos pedirá especificar el tipo de datos de la clave primaria -y java debe saber cual es esa clave primaria-.
+
+En este caso parte de los problemas derivados de la definición de la clase `Usuari.java` vienen derivados a una decisión que he tomado como desarrollador: la decisión de escribir mi propio código mySQL y validarlo luego con JPA y Hibernate en lugar de dejar que estas librerías de java creen las bases de datos por sí mismas. A menudo este es el comportamiento que se busca con JPA e Hibernate; sin embargo, considero que este quita control al desarrollador. Es cierto que el trabajo es doble al definir tanto el DDL en una base de datos como la clase Java con la anotación @Entity, pero asó no solo se gana en control, sino también en libertad al poder poder virar a otra plataforma si en un futuro así lo decide el desarrollador.
+
+Para poder hacer que JPA no cree las tablas sino que valide que correspondan a la perfección con la clase del model debemos asegurarnos que tenemos una línea en el `application.properties` donde se especifiqie que el automatismo del DDL que ofrece JPA esté configurado en "validate" en lugar de permitir que Java pueda crear o eliminar tablas, tal que así:
+
+https://github.com/blackcub3s/miApp/blob/c25ef5ba7e742f38300430c72d3f8f8357bb0ddf/APP%20WEB/__springboot__produccio__/app/src/main/resources/application.properties#L14
+
+> NOTA: Ya para terminar con el "model" es imporante especificar que la clase de java escrita nos permite evitar escribir constructores con y sin parámetros, getters, setters, etc (que es lo que hay que hacer cuando creamos una clase en java). Por eso hay una librería que podemos cargarla con springboot que se denomina `Lombok`. Esta lo que permite es escribir unas anotaciones que crean los constructores (@NoArgsConstructor, @AllArgsConstructor), y una sola anotación (@Data) que nos crea los getters y setters, entre otros. De este modo los constructores y los getters y seters siguen estando ahí, aunque no estén escritos. Y se reduce el código mecánico que caracteriza las clases de java (menos boilerplate es mejor). Esto nos permite hacer cambios en el nombre de un atributo java, por ejemplo, sin tener que preocuparnos sobre cambiar el nombre del getter y setter para ese atributo (se hará de forma automática por parte de Lombok).
 
 
 ## 3.2 La inyección de dependencias
