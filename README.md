@@ -39,7 +39,7 @@ Como se ha comentado anteriormente, este sistema de registro y de iniciar sesió
 
 El diagrama de flujo del proyecto de este repositiorio es el siguiente:
 
-![asd](/img/esquemaApp.jpeg)
+![esquema app no cargó](/img/esquemaApp.jpeg)
 
 Este se puede entender del siguiente modo:
 
@@ -64,7 +64,7 @@ Nuestra página replicada [pas1_landingSignUp_.html](/img/pas1_landingSignUp_.pn
 
 Lo más importante que tiene es el botón de iniciar sesión en la parte superior derecha y el formulario para mandar el correo y registrarse en caso que un usuario no lo esté. En este repositorio nos centraremos **únicamente** en este último aspecto: el formulario de registro. Con ello será suficiente para hacer una pequeña, pero exhaustiva, primera aproximación al framework Springboot.
 
-Desgranaré, en los subapartados 3.1.1 a 3.1.4, los distintos tipos de clases que hay que escribir en un proyecto springboot. Para ello, deberemos tener en mente el siguiente esquema y el concepto de "inyección de dependencias" que también explicaremos después y que es fundamental para entender como pasa información de una clase de java a la otra dentro del mismo proyecto Springboot sin necesidad de instanciar un nuevo objeto dentro del constructor.
+Desgranaré, en los subapartados 3.1.1 a 3.1.4, los distintos tipos de clases que hay que escribir en un proyecto springboot para conseguir obtener el comportamiento del [diagrama de flujo](#Diagrama-de-flujo) pintado en rosa, que es el que muestra la estructura del proyecto. Para ello, deberemos tener en mente el siguiente esquema y el concepto de "inyección de dependencias" que también explicaremos después y que es fundamental para entender como pasa información de una clase de java a la otra dentro del mismo proyecto Springboot sin necesidad de instanciar un nuevo objeto dentro del constructor. Si al usuario le interesa por qué hemos escogido este tipo de organización (by feature y by layer -por característica y capa-, en lugar de el esquema by feature a secas o by layer a secas puede consultar el [Anexo](#Anexo))
 
 ![esquema estructura byFeature byLayer no ha carregat](/img/byFeatureByLayer.jpeg)
 
@@ -134,8 +134,22 @@ Posar link a `pas2A_infoBenvinguda.html`
 
 
 
+# Anexo
+
+Existen tres formas para organizar un proyecto spring boot cada una con sus ventajas y sus desventajas que desgranaremos. Pondremos la estructura que habría tomado este proyecto con cada una de ellas:
 
 
+* `By Feature` (por característica de la app): Si se hubiese escogido esta forma de estructurar el proyecto habría tenido el aspecto de la imagen siguiente. Esto permite que cuando hay pocos archivos se encuentren rápidamente. Sin embargo, si una característica requiere múltiples clases, también requerirá múltiples repositorios, múltiples servicios... La gracia de organizar por característica es que estén juntos solamente los archivos de distintas capas que funcionen juntos (y esto no se consigue cuando la aplicación crece).
+
+![esquema estructura byFeature no ha carregat](/img/byFeature.jpeg)
+
+* `By layer` (por capa): Hemos comentado en este readme que un proyecto springboot se organiza en distintas capas (modelo, repositorio, servicio y controlador). Si separamos en carpetas -"packages, en java"- cada una de ellas encontraremos por ejemplo todas las definiciones de base de datos mediante ORM en una sola carpeta. Esto puede ser útil cuando el proyecto es pequeño, pero cuando este crece y tenemos múltiples "entities" dentro de los archivos de definición de "model" éstas van a apuntar a características muy diferentes. Por ejemplo, imaginemos la tabla de usuarios con sus datos (entity usuaris) y una tabla de base de datos donde guardásemos los distintos paises a los que pertenecen las IPs entrantes e nnuestra aplicación. Si en este caso no nos importase mapear a qué usuario pertenece cada IP, eso significa que cada una de esas Entities mapeará a una tabla que pertenece a una caracteristica distintas de la aplicación. Y no tiene sentido que estén juntas.
+
+![esquema estructura byLayer no ha carregat](/img/byLayer.jpeg)
+
+* `By Feature and by layer` (por característica y por capa): Esta forma de estructurar es la que ha sido escogida para este proyecto, porque me ha parecido la más lógica. El proyecto se prevé que crezca bastante en el futuro, así que para mantener las clases organizadas se han usado ambos enfoques. Se organiza por capa DENTRO de cada característica:
+
+![esquema estructura byFeature byLayer no ha carregat](/img/byFeatureByLayer.jpeg)
 
 
 [^1]: La forma como yo entiendo estos principios es que hay que conseguir que cada solicitud al servidor mediante la API sea suficiente en sí misma y sin estado que requiera persistencia en servidor, que los datos que se pasen a través de la solicitud de la fetch-API a los endpoints de la API del backend se hagan mediante JSON con uno o varios pares de claves valor donde la clave explique claramente a qué se destina el valor, que se utilicen métodos HTTP que apunten a endpoints con estructura URL, etc.
