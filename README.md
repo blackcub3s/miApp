@@ -99,22 +99,22 @@ Vamos ahora a ver el cuerpo de esta función en la clase usuariServei (clase "se
 
 https://github.com/blackcub3s/miApp/blob/9d06a71d4e7966cfe74a9e770beeb251e6a7bb50/APP%20WEB/__springboot__produccio__/app/src/main/java/pirapp/app/Usuaris/servei/UsuariServei.java#L35-L41
 
-En esencia lo que hacemos en la función `usuariRegistrat(String eMail)` es pasar como parámetro el mail que hemos obtenido desde el controlador (que de hecho proviene en primera instancia del formulario de entrada del usuario) y ver si este mail se encuentra en la base de datos de usuarios. Si lo encuentra en la bbdd -es decir, el usuario ya estaba registrado en la tabla de usuarios- la variable `mailUsuari` tendrá un string dentro. En caso que no -usuario no registrado-, entonces podremos usar el tipo "Optional" para evitar errores (dado que no devolverá ningun resultado la consulta a la base de datos). Finalemnte el juicio de si existe en base a esta lógica lo efectuamos en el return (con mailUsuari.isPresent()) que es una función va en tandem con el tipo Optional<String>.
+En esencia lo que hacemos en la función `usuariRegistrat(String eMail)` es pasar como parámetro el mail que hemos obtenido desde el controlador (que de hecho proviene en primera instancia del formulario de registro que un usuario web acabe de mandar) y ver si este mail se encuentra en la base de datos de usuarios. Si se encuentra en la bbdd -es decir, el usuario ya estaba registrado en la tabla de usuarios- la variable `mailUsuari` tendrá un string dentro. En caso que no -usuario no registrado-, la consulta a la base de datos no devolverá ningún resultado (en cuyo caso el tipo "Optional", que envuelve el tipo string, permitirá evitar errores. Finalemnte, el juicio de si existe o no existe un usuario, en base a esta lógica lo efectuamos en el return (con `mailUsuari.isPresent(`)) que es una función va en tandem con el tipo Optional<String>.
 
-Bien, y después de esto nos preguntaremos... Y dónde están las consultas a la base de datos? Porque estamos haciendo consultas en una base de datos, verdad? Pues sí, eston nos lleva a hablar de la siguiente clase: la clase repositiorio:
+Bien, y después de esto nos preguntaremos... ¿Y dónde están las consultas a la base de datos? Porque bien que estamos haciendo consultas en una base de datos... ¿verdad? Pues esto nos lleva a hablar en el siguiente subapartado de la clase repositiorio y llegamos a ella ya que en la función de la clase "service" de la que hemos hablado tenemos una llamada al objeto "repoUsuari" que pertenece a la clase UsuariRepositori.java:
 
 
+https://github.com/blackcub3s/miApp/blob/9d06a71d4e7966cfe74a9e770beeb251e6a7bb50/APP%20WEB/__springboot__produccio__/app/src/main/java/pirapp/app/Usuaris/servei/UsuariServei.java#L38C26-L38C37
 
 
 ## 3.1.3 definición de la clase "Respositori" (las consultas a la BBDD)
 
-La clase `UsuariRepositori.java` del inglés "repository" es donde ponemos las queries o las consultas con lenguaje mySQL. SpringBoot permite que, en determinados casos, no tengamos que escribir el lenguaje SQL; pero si deseamos especificar las consultas explícitamente por legibilidad o porque no encontramos una función de JPA que nos deje hacerlas, lo podemos hacer con la anotación @Query. Para el caso que nos ocupa, de nuevo, recordemos que en la función que hemos mostrado en el apartado anterio, en el "service", estamos a su vez llamando una función "trobaStringUsuariPerCorreu" a una variable denominada "repoUsuari" que es de tipo "UsuariRepositori":
+La clase `UsuariRepositori.java` del inglés "repository" implementa una interfaz que hereta (de ahí la palabra `extends`) la clase JpaRepository. En esta clase es donde pondremos las queries o las consultas con lenguaje mySQL (si no queremos hacerlo en determinados casos podremos evitarlo porque ya hay funciones predefinidas dentro de JpaRepository que permiten solucionar peticiones ordinarias y frecuentes en bbdd). Estas queries se especifican mediante la anotación Java `@Query` encima de las cabeceras de las funciones. Cada una de estas funciones no va a tener cuerpo, y solamente va a actuar como un sistema para pasar valores por parámetro a la query mysql y va a devolver el resultado de la query o consulta con el tipo de datos que especifiquemos para el return.
 
-https://github.com/blackcub3s/miApp/blob/9d06a71d4e7966cfe74a9e770beeb251e6a7bb50/APP%20WEB/__springboot__produccio__/app/src/main/java/pirapp/app/Usuaris/servei/UsuariServei.java#L38C26-L38C37
 
-Pues es justamente esta función donde JPA nos hace la query:
+Así las cosas, aquí tenemos la función `trobaStringUsuariPerCorreu(eMail)` de la que hemos hablado al final del apartado anterior:
 
-https://github.com/blackcub3s/miApp/blob/9d06a71d4e7966cfe74a9e770beeb251e6a7bb50/APP%20WEB/__springboot__produccio__/app/src/main/java/pirapp/app/Usuaris/repositori/UsuariRepositori.java#L25-L28
+https://github.com/blackcub3s/miApp/blob/9d06a71d4e7966cfe74a9e770beeb251e6a7bb50/APP%20WEB/__springboot__produccio__/app/src/main/java/pirapp/app/Usuaris/repositori/UsuariRepositori.java#L27-L28
 
 
 **TO DO: Aqui parlar de la injeccio de dependencies i posar aquest link. Aixi el mateix objecte es comparteix per diferents instancies en comptes de haver d'instanciar de nou:**
