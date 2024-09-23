@@ -1,6 +1,6 @@
 //CAL TESTEJAR CLASSE
 
-package pirapp.app.Usuaris.model;
+package miApp.app.Usuaris.model;
 
 
 import jakarta.persistence.*;

@@ -1,16 +1,16 @@
 //NOTA: FALTARA AFEGIR FUNCIONS QUE FACIN SERVIR LES FUNCIONS USUARI AMPLIAT DE DINS USUARISERVEI.java, segons necessitis
 
-package pirapp.app.Usuaris.controlador;
+package miApp.app.Usuaris.controlador;
 
 
 //PAS4: Controlador Rest. Amb aixo exposarem l'endpoint que creem al servei UsuariPrePago. Injectarem
 // la dependència del Servei.
 
+import miApp.app.Usuaris.servei.UsuariServei;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pirapp.app.Usuaris.servei.UsuariServei;
 
 import java.util.HashMap;
 

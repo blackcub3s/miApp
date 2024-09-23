@@ -1,13 +1,13 @@
 //NOTA: FALTARA AFEGIR FUNCIONS QUE UTILITZIN USUARI AMPLIAT REPOSITORI
 
-package pirapp.app.Usuaris.servei;
+package miApp.app.Usuaris.servei;
 
+import miApp.app.Usuaris.repositori.UsuariAmpliatRepositori;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pirapp.app.Usuaris.model.Usuari;
-import pirapp.app.Usuaris.model.UsuariAmpliat;
-import pirapp.app.Usuaris.repositori.UsuariAmpliatRepositori;
-import pirapp.app.Usuaris.repositori.UsuariRepositori;
+import miApp.app.Usuaris.model.Usuari;
+import miApp.app.Usuaris.model.UsuariAmpliat;
+import miApp.app.Usuaris.repositori.UsuariRepositori;
 
 import java.util.List;
 import java.util.Objects;

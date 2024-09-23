@@ -1,12 +1,12 @@
 //CLASSE FET PER XAT GPT. CAL TESTEJARLA
 
-package pirapp.app.Usuaris.repositori;
+package miApp.app.Usuaris.repositori;
 
 
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import pirapp.app.Usuaris.model.UsuariAmpliat;
+import miApp.app.Usuaris.model.UsuariAmpliat;
 
 import java.util.Optional;
 

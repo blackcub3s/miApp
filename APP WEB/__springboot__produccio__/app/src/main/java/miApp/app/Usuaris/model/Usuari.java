@@ -1,4 +1,4 @@
-package pirapp.app.Usuaris.model;
+package miApp.app.Usuaris.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

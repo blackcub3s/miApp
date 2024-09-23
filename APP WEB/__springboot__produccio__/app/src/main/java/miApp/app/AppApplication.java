@@ -1,12 +1,9 @@
-package pirapp.app;
+package miApp.app;
 
-import jdk.swing.interop.SwingInterOpUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
-import pirapp.app.Usuaris.model.UsuariAmpliat;
-import pirapp.app.Usuaris.servei.UsuariServei;
+import miApp.app.Usuaris.servei.UsuariServei;
 
 
 @SpringBootApplication
