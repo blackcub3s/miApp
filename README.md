@@ -66,7 +66,7 @@ Lo más importante que tiene es el botón de iniciar sesión en la parte superio
 
 Desgranaré, en los subapartados 3.1.1 a 3.1.4, los distintos tipos de clases que hay que escribir en un proyecto springboot. Para ello, deberemos tener en mente el siguiente esquema y el concepto de "inyección de dependencias" que también explicaremos después y que es fundamental para entender como pasa información de una clase de java a la otra dentro del mismo proyecto Springboot sin necesidad de instanciar un nuevo objeto dentro del constructor.
 
->**INSERTAR IMATGE D'ESQUEMA COMPLETAT**
+![asd](/img/esquemaApp.jpeg)
 
 Es importante que el lector entienda que cuando se programa un backend en springboot primero vamos a programar la clase Usuari.java, luego UsuariRepositori.java, luego UsuariService.java y luego UsuariController.java. Sin embargo, en cada uno de los cuatro subapartados siguientes se desgrana cada una de estas clases en orden inverso (empezando por el último, el controller). Bajo mi punto de vista, es más sencillo de entender si al lector se le presenta la información de este modo:
 
