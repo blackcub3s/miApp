@@ -156,10 +156,10 @@ https://github.com/blackcub3s/miApp/blob/c25ef5ba7e742f38300430c72d3f8f8357bb0dd
 Antes hemos visto que en la la clase controlador (UsuariControlador) llamamos una función de la clase servicio (UsuariServei). De forma análoga, dentro de la clase UsuariServei llamamos a una función de la clase UsuariRepositori. Por lo tanto, para conseguir hacer esto podríamos haber hecho nuestro programa de dos formas:
 
 - **FORMA 1. instanciar objetos**: este es el método menos óptimo y requiere:
-    - A. Instanciar dentro de la clase controlador una instancia u objeto de la clase servicio.
-    - B. instanciar dentro de la clase servicio un objeto de la clase repositiorio.
+    - A. Instanciar dentro de la clase `UsuariControlador` una instancia u objeto de la clase `UsuariServei`.
+    - B. instanciar dentro de la clase `UsuariServei` un objeto de la clase `UsuariRepositori`.
 
-- **FORMA 2. inyectar dependencias**: Esta es la forma más correcta de desarrollar nuestra aplicación, porque permite facilitar los tests unitarios y hacer cambios en la clase dependiente sin tener que modificar código en la clases donde se inyecta la dependencia en cuestión. Este método requiere:
+- **FORMA 2. inyectar dependencias**: Esta es la forma más correcta de desarrollar nuestra aplicación, porque facilita los tests unitarios y los cambios en la clase dependientes sin tener que modificar código en la clases en donde se inyectan las dependencias en cuestión. Este método requiere, para el caso que nos ocupa:
 
     - A. Vamos a la clase controlador e inyectamos un atributo de tipo "UsuariServei" (clase servicio) y, acto seguido, lo pasamos por parámetro por el constructor de la clase controlador con la anotación @Autowired. 
     - B. Vamos a la clase servicio e inyectamos un atributo de tipo "UsuariRepositori". Luego lo pasamos por parámetro por el constructor de la clase servicio con la anotación `@Autowired`. Por ejemplo, en este último caso lo que hemos hecho ha sido esto:
@@ -167,6 +167,8 @@ Antes hemos visto que en la la clase controlador (UsuariControlador) llamamos un
 
 Para más información 
 https://stackoverflow.com/questions/3386889/difference-between-creating-new-object-and-dependency-injection
+
+>NOTA: Existe la inyección de dependencias por campo en lugar de la inyección de dependencias por constructor (pondríamos autowired directamente encima del atributo de la clase). Sin embargo, esta es menos recomendada.
 
 
 
