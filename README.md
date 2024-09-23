@@ -151,7 +151,7 @@ https://github.com/blackcub3s/miApp/blob/c25ef5ba7e742f38300430c72d3f8f8357bb0dd
 > NOTA: Ya para terminar con el "model" es imporante especificar que las clases de java del model (es decir, las que tienen @Entity) nos permiten evitar escribir constructores con y sin parámetros, getters, setters, etc .(que es lo que hay que hacer cuando creamos una clase en java y que es tan mecánico que incluso editores como netbeans permiten generarlos automáticamente). En este caso, empero, tenemos una librería en springboot que se denomina `Lombok`. Esta librería no solo nos asiste como lo haría netbeans, sino mejor. De hecho permite escribir unas anotaciones que crean los constructores (@NoArgsConstructor, @AllArgsConstructor), y una sola anotación (@Data) que crea los getters y setters -y otros- sin que nosotros los veamos escritos, actualizándolos incluso si cambiamos nombres de atributos. Así se reduce escribir el código mecánico que caracteriza las clases de java (menos boilerplate es mejor) y, lo más importante, que nos olvidamos de mantenerlo también: si hacemos cambios en el nombre de un atributo java, por ejemplo, ya no tendremos que preocuparnos sobre cambiar el nombre del getter y setter para ese atributo (se hará de forma automática por parte de Lombok).
 
 
-## 3.2 La inyección de dependencias
+## 3.1.5 La inyección de dependencias
 
 Antes hemos visto que en la la clase controlador (UsuariControlador) llamamos una función de la clase servicio (UsuariServei). De forma análoga, dentro de la clase UsuariServei llamamos a una función de la clase UsuariRepositori. Por lo tanto, para conseguir hacer esto podríamos haber hecho nuestro programa de dos formas:
 
@@ -172,23 +172,9 @@ https://stackoverflow.com/questions/3386889/difference-between-creating-new-obje
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
- Si el usuario ha introducido un correo y el correo tiene una estructura válida se va a hacer una primera comprobación en el back-end y la base de datos mediante la API rest. Entonces se mirará si existe el correo.
-
 # 3.2 Existe correo (existe usuario)
 
-Si el correo existe ahora miramos (asterisco 2)
+Si en el controlador del que hablamos en el apartado 3.1.1 recibimos via API REST un JSON del estilo `{"email":"acces@gmail.com"}`, y ese correo existe y además tiene acceso a recursos de la aplicación devuelve al frontend 
 
 ## 3.2.1 Usuario sí tiene acceso a recursos
 
