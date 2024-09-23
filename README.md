@@ -135,6 +135,7 @@ Es facil ver que cada atributo java simplemente está mapeando cada columna de l
 
 ## 3.2 La inyección de dependencias
 
+
 > TODO:
 * Parlar de controlador i servei i de com injecten les dependencies dins amb autowired
 * TO DO: Aqui parlar de la injeccio de dependencies i posar aquest link. Aixi el mateix objecte es comparteix per diferents instancies en comptes de haver d'instanciar de nou:
