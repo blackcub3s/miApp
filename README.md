@@ -32,7 +32,7 @@ Como se ha comentado, cada uno de los tres proyectos necesita su propio puerto p
 - 2. la base de datos corre en el puerto por defecto de mysql workbench, **3306** de la mencionada dirección.
 - 3. El backend de springboot corra en el puerto por defecto **8080**.
 
-Es indispensable que se respeten estos puertos porque en las distintas fetch-APIs del front-end apuntamos al puerto 8080. Asimismo, en los controladores de springboot permitimos consumir las APIs de orígenes cruzados solamente desde el puerto 5500 y, finalmente, dentro del archivo [application/properties](/APP WEB/__springboot__produccio__/app/src/main/resources/application.properties) del backend especificamos que la base de datos está en el puerto 8080.
+Es indispensable que se respeten estos puertos porque en las distintas fetch-APIs del front-end apuntamos al puerto 8080. Asimismo, en los controladores de springboot permitimos consumir las APIs de orígenes cruzados solamente desde el puerto 5500 y, finalmente, dentro del archivo [application.properties](/APP%20WEB/__springboot__produccio__/app/src/main/resources/application.properties) del backend especificamos que la base de datos está en el puerto 8080.
 
 # 3. Diagrama de flujo
 
