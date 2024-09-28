@@ -2,11 +2,11 @@ DROP DATABASE IF EXISTS pirApp;
 CREATE DATABASE pirApp;
 USE pirApp;
 
-CREATE TABLE usuari (  -- aquesta es la info que es guarda quan un usuari posa la seva contrassenya encara que no pagui (igual a netflix)
+CREATE TABLE usuari (  -- aquesta es la info que es guarda quan un usuari posa la seva contrassenya encara que no pagui (igual a Netflix)
     id_usuari INTEGER AUTO_INCREMENT,
     correu_electronic VARCHAR(70) NOT NULL UNIQUE,
     hash_contrasenya VARCHAR(20) NOT NULL, -- CALDRA CANVIAR HO PER UN HASH
-	alies VARCHAR(30), -- el generarem aleatoriament potser
+    alies VARCHAR(30), -- el generarem aleatoriament potser
     pla_suscripcio_actual TINYINT NOT NULL, -- 0 es que no paga res pero que tenim les seves dades (sigui per baixa o per que ens ha donat correu i contrasenya). superior a 0 sera algun plan que permet accedir a dades (sigui perque paga o peroque li donem superusuari)
     data_registre DATETIME NOT NULL DEFAULT NOW(), -- AQUESTA COLUMNA NO L'HE ACONSEGUIT MAPEJAR AMB JAVA JPA ORM
     PRIMARY KEY (id_usuari)
