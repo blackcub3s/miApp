@@ -40,7 +40,7 @@ Como se ha comentado anteriormente, este sistema de registro y de iniciar sesió
 
 El diagrama de flujo[^5] es el siguiente (está en catalán dado que, por consistencia con los nombres de archivos y de variables del programa, era la mejor decisión a tomar):
 
-![esquema app no cargó](/img/diagramaOutput.jpeg)
+![esquema app no cargó](/img/diagramaOutput.png)
 
 Este se puede entender del siguiente modo:
 
