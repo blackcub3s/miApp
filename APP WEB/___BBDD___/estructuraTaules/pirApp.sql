@@ -2,7 +2,7 @@ DROP DATABASE IF EXISTS pirApp;
 CREATE DATABASE pirApp;
 USE pirApp;
 
-CREATE TABLE usuari (  -- aquesta es la info que es guarda quan un usuari posa la seva contrassenya encara que no pagui (igual a Netflix)
+CREATE TABLE usuari (  -- aquesta es la info que es guarda quan un usuari posa la seva contrassenya encara que no pagui (igual a Netflix).
     id_usuari INTEGER AUTO_INCREMENT,
     correu_electronic VARCHAR(70) NOT NULL UNIQUE,
     hash_contrasenya VARCHAR(20) NOT NULL, -- CALDRA CANVIAR HO PER UN HASH
