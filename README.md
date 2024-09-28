@@ -40,7 +40,9 @@ Como se ha comentado anteriormente, este sistema de registro y de iniciar sesió
 
 El diagrama de flujo[^5] es el siguiente (está en catalán dado que, por consistencia con los nombres de archivos y de variables del programa, era la mejor decisión a tomar):
 
-![esquema app no cargó](/img/diagramaOutput.png)
+<div align="center">
+  <img src="/img/diagramaTikzDefinitiu.svg" alt="diagrama svg no cargó" />
+</div>
 
 Este se puede entender del siguiente modo:
 
