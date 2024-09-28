@@ -38,9 +38,15 @@ Es indispensable que se respeten estos puertos porque en las distintas fetch-API
 
 Como se ha comentado anteriormente, este sistema de registro y de iniciar sesión ha sido inspirado mediante un proceso de desarrollo inverso observando el funcionamiento de la página de Netflix. Por ello, el comportamiento de la aplicación que describimos en este diagrama de flujo es aplicable por partida doble: tanto para la aplicación que he creado como para la página oficial de Netflix.
 
-El diagrama de flujo es el siguiente (está en catalán dado que los nombres de archivos los he escrito en catalán):
+El diagrama de flujo es el siguiente (está en catalán dado que, por consistencia con los nombres de archivos y de variables del programa, era la mejor decisión a tomar):
 
-![esquema app no cargó](/img/esquemaApp.jpeg)
+
+<figure>
+  <img src="/img/diagramaOutput.jpeg" alt="esquema app no cargó">
+  <figcaption>Figura 1: Diagrama de flujo de la aplicación</figcaption>
+</figure>
+
+
 
 Este se puede entender del siguiente modo:
 
