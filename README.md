@@ -47,7 +47,7 @@ Este se puede entender del siguiente modo:
 1. Cada paralelogramo de color naranja es una página estática html de nuestro proyecto.
 2. Cada rombo de fondo amarillo es una decisión que se hará dentro del backend de springboot, dado que requiere hacer consultas a la BBDD y contiene datos sensibles.
 3. Los rombos de fondo azul se decidirán en el front-end en tanto que sus decisiones no requieran consultar información personal en la base de datos y no requerirán, por lo tanto, de uso del back-end.
-4. El paréntesis que incluye la extensión de una URL debajo de cada paralelogramo naranja es cada página de netflix cuyo comportamiento y, en menor medida, aspecto, se ha intentado replicar en el archivo html del rombo que está contiguo. Por ejemplo el archivo html `pas2A_infoBenvinguda.html` de mi proyecto es una réplica de la página especificada en el paréntesis `netflix.com/signup/registration` y el usuario llegará a ella gracias a aplicar una lógica de backend similar a la que usa Netflix. 
+4. El paréntesis que incluye la extensión de una URL debajo de cada rectángulo naranja es cada página de netflix cuyo comportamiento y, en menor medida, aspecto, se ha intentado replicar en el archivo html del rombo que está contiguo. Por ejemplo el archivo html `pas2A_infoBenvinguda.html` de mi proyecto es una réplica de la página especificada en el paréntesis `netflix.com/signup/registration` y el usuario llegará a ella gracias a aplicar una lógica de backend similar a la que usa Netflix. 
 
 
 >⚠️ **NOTA**: es muy importante hacer notar que las consultas de datos personales a la base de datos -correos y contraseñas- no se deben hacer desde el frontend, porque los archivos del frontend son públicos para el usuario y podrían exponer los datos de los usuarios en la base de datos a vulnerabilidades.
@@ -225,7 +225,7 @@ Existen `tres` formas de organizar un proyecto Springboot, cada una con sus vent
 ![esquema estructura byFeature byLayer no ha carregat](/img/byFeatureByLayer.jpeg)
 
 
-[^5]: El diagrama fue hecho en tikz, paquete de LaTeX. Si el lector quiere saber como se ha hecho desde el diagrama original a mano alzada puede consultar mi repositorio [diagramaTikz](https://github.com/blackcub3s/diagramaTikz).
+[^5]: El diagrama fue hecho en tikz, paquete de LaTeX. Si el lector quiere saber como se ha hecho el mismo desde el diagrama original a mano alzada puede consultar mi repositorio [diagramaTikz](https://github.com/blackcub3s/diagramaTikz).
 
 [^1]: La forma como yo entiendo estos principios es que hay que conseguir que cada solicitud al servidor mediante la API sea suficiente en sí misma y sin estado que requiera persistencia en servidor, que los datos que se pasen a través de la solicitud de la fetch-API a los endpoints de la API del backend se hagan mediante JSON con uno o varios pares de claves valor donde la clave explique claramente a qué se destina el valor, que se utilicen métodos HTTP que apunten a endpoints con estructura URL, etc.
 
