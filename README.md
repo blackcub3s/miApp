@@ -22,7 +22,7 @@ Finalmente, mencionar que no se comentarán aspectos de los estilos del front-en
 Se recomienda al lector que, si quiere probar y ver la aplicación web con todas sus características, haga un clone del repositorio y abra en local cada uno de los tres proyectos con su editor correspondiente. De este modo cada editor expondrá una URL y un puerto en el mismo equipo[^2]:
 
 - **[el front-end](/APP%20WEB/__frontend__produccio__/landingPage/)**: se recomienda abrirlo con el editor `vscode`, y ejecutar la página [pas1_landingSignUp.html](/APP%20WEB/__frontend__produccio__/landingPage/pas1_landingSignUp.html) mediante la extensión "live server".
-- **[la base de datos](/___BBDD___/estructuraTaules/pirApp.sql)**: se aconseja abrirla y definir una conexión con la misma mediante el editor `mysql workbench`.
+- **[la base de datos](/APP%20WEB/___BBDD___/estructuraTaules/pirApp.sql)**: se aconseja abrirla y definir una conexión con la misma mediante el editor `mysql workbench`.
 -  **[el back-end](/APP%20WEB/__springboot__produccio__/)**: se propone ejecturarlo mediante el editor de Java `IntelliJ idea`. Para hacerlo hay que buscar el archivo `AppApplication.java`, donde se situa la función main que en ser llamada activa todo el proyecto, y correrlo mediante "ctrl + shift + F10".  
     - >Las dependencias necesarias para el proyecto Springboot pueden ser consultadas en el archivo [pom.xml](/APP%20WEB/__springboot__produccio__/app/pom.xml)
 
