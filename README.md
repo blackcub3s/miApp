@@ -38,15 +38,9 @@ Es indispensable que se respeten estos puertos porque en las distintas fetch-API
 
 Como se ha comentado anteriormente, este sistema de registro y de iniciar sesión ha sido inspirado mediante un proceso de desarrollo inverso observando el funcionamiento de la página de Netflix. Por ello, el comportamiento de la aplicación que describimos en este diagrama de flujo es aplicable por partida doble: tanto para la aplicación que he creado como para la página oficial de Netflix.
 
-El diagrama de flujo es el siguiente (está en catalán dado que, por consistencia con los nombres de archivos y de variables del programa, era la mejor decisión a tomar):
+El diagrama de flujo[^5] es el siguiente (está en catalán dado que, por consistencia con los nombres de archivos y de variables del programa, era la mejor decisión a tomar):
 
-
-<figure>
-  <img src="/img/diagramaOutput.jpeg" alt="esquema app no cargó">
-  <figcaption>Figura 1: Diagrama de flujo de la aplicación</figcaption>
-</figure>
-
-
+![esquema app no cargó](/img/diagramaOutput.jpeg)
 
 Este se puede entender del siguiente modo:
 
@@ -230,6 +224,8 @@ Existen `tres` formas de organizar un proyecto Springboot, cada una con sus vent
 
 ![esquema estructura byFeature byLayer no ha carregat](/img/byFeatureByLayer.jpeg)
 
+
+[^5]: El diagrama fue hecho en tikz, paquete de LaTeX. Si el lector quiere saber como se ha hecho desde el diagrama original a mano alzada puede consultar mi repositorio [diagramaTikz](https://github.com/blackcub3s/diagramaTikz).
 
 [^1]: La forma como yo entiendo estos principios es que hay que conseguir que cada solicitud al servidor mediante la API sea suficiente en sí misma y sin estado que requiera persistencia en servidor, que los datos que se pasen a través de la solicitud de la fetch-API a los endpoints de la API del backend se hagan mediante JSON con uno o varios pares de claves valor donde la clave explique claramente a qué se destina el valor, que se utilicen métodos HTTP que apunten a endpoints con estructura URL, etc.
 
