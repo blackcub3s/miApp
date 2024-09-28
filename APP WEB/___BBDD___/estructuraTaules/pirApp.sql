@@ -3,7 +3,7 @@ CREATE DATABASE pirApp;
 USE pirApp;
 
 CREATE TABLE usuari (  -- aquesta es la info que es guarda quan un usuari posa la seva contrassenya encara que no pagui (igual a netflix)
-	id_usuari INTEGER AUTO_INCREMENT,
+    id_usuari INTEGER AUTO_INCREMENT,
     correu_electronic VARCHAR(70) NOT NULL UNIQUE,
     hash_contrasenya VARCHAR(20) NOT NULL, -- CALDRA CANVIAR HO PER UN HASH
 	alies VARCHAR(30), -- el generarem aleatoriament potser
@@ -14,14 +14,14 @@ CREATE TABLE usuari (  -- aquesta es la info que es guarda quan un usuari posa l
 
 
 CREATE TABLE usuari_ampliat ( -- nomes usuaris quan JA HAN PAGAT o han pagat alguna vegada (dades potencialment importants per a hisenda)! veure si es pot obtenir de la info de pagament
-	id_usuari INTEGER,
+    id_usuari INTEGER,
     nom VARCHAR(25),
     primer_cognom VARCHAR(25),
     segon_cognom VARCHAR(25),
     
     PRIMARY KEY(id_usuari),
     FOREIGN KEY(id_usuari) REFERENCES usuari(id_usuari)
-		ON DELETE CASCADE
+        ON DELETE CASCADE
         ON UPDATE CASCADE
 );
 
