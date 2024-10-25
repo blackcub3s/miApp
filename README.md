@@ -112,7 +112,7 @@ Bien, y después de esto nos preguntaremos... ¿Y dónde están las consultas a 
 https://github.com/blackcub3s/miApp/blob/9d06a71d4e7966cfe74a9e770beeb251e6a7bb50/APP%20WEB/__springboot__produccio__/app/src/main/java/pirapp/app/Usuaris/servei/UsuariServei.java#L38
 
 
-### 3.1.3 definición de la clase "repository" (las consultas a la BBDD)
+### 3.1.3 Definición de la clase "repository" (las consultas a la BBDD)
 
 La clase `UsuariRepositori.java` (en el título, "repository" del inglés) implementa una interfaz que hereta las funciones de la clase JpaRepository (de ahí la palabra `extends`). Es en `UsuariRepositori.java` en donde escribiremos las consultas con lenguaje mySQL que queramos lanzar sobre la tabla de usuarios (si no queremos escribir estas consultas, en determinados casos, podremos evitarlo porque ya hay funciones predefinidas dentro de JpaRepository que permiten solucionar peticiones frecuentes en bbdd). Estas queries se especifican mediante la anotación Java `@Query` encima de cada una de las cabeceras de las funciones que escribamos. Cada una de estas funciones no va a tener cuerpo en realidad, y su cabecera va a actuar como un sistema para pasar valores por parámetro a la query mysql, por un lado; y un sistema para devolver el resultado de la query o consulta con el tipo de datos que especifiquemos para el return, por el otro.
 
@@ -122,9 +122,9 @@ https://github.com/blackcub3s/miApp/blob/9d06a71d4e7966cfe74a9e770beeb251e6a7bb5
 
 Si prestáis antención veréis que existe otra anotación denominada `@Param` y que esta anotación toma el parámetro "emailete". Asimismo, el valor que se pasa en la query mysql es el parámetro anterior con dos puntos delante (":emailete") y no tiene directamente el nombre "eMail" que proviene del parámetro de entrada de la función. Esto es porque al hacer la consulta mysql a través de la anotación @Param hace que el propio framework de back-end nos ayude a protegernos contra ciberataques como, por ejemplo, la inyección de mysql -no queremos que ningún usuario ponga consultas sql en donde deberían haber valores, verdad?-.
 
-### 3.1.4 definición de la clase "Usuari" (ORM y mapeado de objeto java a fila de entidad de BBDD)
+### 3.1.4 Definición de la clase "Usuari" (ORM y mapeado de objeto java a fila de entidad de BBDD)
 
-Una de las cosas que implementa Spring Boot es la posibilidad de mapear un objeto de una clase de Java con la línea de una tabla mysql mediante el uso de la anotación `@Entity`. Es lo que llaman ORM o "Object Relational Mapping". Vamos a comparar el DDL[^3] de la tabla "usuari" de mySQL con la clase anotada con `@Entity` que mapea a esa tabla, para verlo más claro.
+Una de las cosas que implementa Spring Boot es la posibilidad de mapear un objeto de una clase de Java con la línea de una tabla mysql mediante el uso de la anotación `@Entity`. Es lo que llaman ORM o "Object Relational Mapping". Vamos a comparar el DDL[^3] de la tabla "usuari" de mySQL con la clase anotada con `@Entity` que mapea a esa tabla (¡en el modelo entidad-relación las entidades es simplemente a lo que llamamos tablas!), para verlo más claro.
 
 Aquí tenemos la tabla usuari en mySQL:
 
