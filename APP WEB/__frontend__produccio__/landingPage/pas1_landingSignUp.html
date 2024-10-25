@@ -190,16 +190,12 @@
 
                             if (dadesExitosesJSON.existeixUsuari) {
                                 if (dadesExitosesJSON.teAccesArecursos) {
-
-                                // -- vas al login --  
-                                window.location.href = "pas2C_login.html";
-                                localStorage.setItem('emailUsuariJaAmbAccesArecursos', email);
-                                // --     --      --- 
+                                    // -- vas al login --  
+                                    window.location.href = "pas2C_login.html";
+                                    localStorage.setItem('emailUsuariJaAmbAccesArecursos', email);
                                 } else {
-                                    //-- anara fer que l'usuari introdueixi contrasenya -- 
-                                    
+                                    //-- anira a fer que l'usuari introdueixi contrasenya -- 
                                     window.location.href = "pas2B_introduirContrasenya.html"
-                                    // --     --      --- 
                                 }
                             
                             } else { //no existeix usuaris
