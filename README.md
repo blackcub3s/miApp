@@ -122,7 +122,7 @@ https://github.com/blackcub3s/miApp/blob/9d06a71d4e7966cfe74a9e770beeb251e6a7bb5
 
 Si prestáis antención veréis que existe otra anotación denominada `@Param` y que esta anotación toma el parámetro "emailete". Asimismo, el valor que se pasa en la query mysql es el parámetro anterior con dos puntos delante (":emailete") y no tiene directamente el nombre "eMail" que proviene del parámetro de entrada de la función. Esto es porque al hacer la consulta mysql a través de la anotación @Param hace que el propio framework de back-end nos ayude a protegernos contra ciberataques como, por ejemplo, la inyección de mysql -no queremos que ningún usuario ponga consultas sql en donde deberían haber valores, verdad?-.
 
-### 3.1.4 definición de la clase "Usuari" (con el ORM o mapeado de objeto java a entidad de bbdd)
+### 3.1.4 definición de la clase "Usuari" (ORM y mapeado de objeto java a fila de entidad de BBDD)
 
 Una de las cosas que implementa Spring Boot es la posibilidad de mapear un objeto de una clase de Java con la línea de una tabla mysql mediante el uso de la anotación `@Entity`. Es lo que llaman ORM o "Object Relational Mapping". Vamos a comparar el DDL[^3] de la tabla "usuari" de mySQL con la clase anotada con `@Entity` que mapea a esa tabla, para verlo más claro.
 
