@@ -10,16 +10,20 @@ Además, la comunicación entre front-end y back-end la he realizado en todo cas
 
 # 1. Objetivo
 
-Por un lado, mostrar una pequeña porción del software de un proyecto mio (que es software propietario, así que no está mostrado aquí en su totalidad) para demostrar que he adquirido un conocimiento generalista del framework Springboot; y, por el otro, mostrar información relevante de los primeros pasos que hay quedar para que desarrollador que quiera empezar a desarrollar back-end con este framework de Java tenga una guía para poder a empezar a dar sus primeros pasos al preparar la antesala de un sistema de registro. 
+Por un lado, mostrar una pequeña porción de un software que pertenece a un proyecto mío más grande (no está mostrado aquí en su totalidad dado que es software propietario) para demostrar que he iniciado la adquisición de conocimientos en un framework de back-end, como es Spring boot; y, por el otro, mostrar la antesala de un sistema de registro, información que será relevante para otros desarrolladores de software que quieran empezar a aprender este framework de Java.
 
-Para enseñar como funciona Springboot voy a describir de forma pormenorizada los dos nodos de decisión en color amarillo y todos los nodos de salida o páginas HTML (rectangulos naranja) que son contiguos a ellos dos del [diagrama de flujo](#3-diagrama-de-flujo) del tercer apartado. De este modo, explicaré a grandes rasgos como se estructura un proyecto en Springboot en sus distintas partes organizativas partiendo del paradigma del modelo vista controlador o MVC (en este caso: modelo, repositorio, servicio y controlador). Además, también quisiera tratar de demostrar como podemos utilizar este framework para traducir el código en resultados tangibles que nos ayuden con una lógica de negocio enfocada a captar clientes ya desde sus primeras interacciones.
+Para enseñar como funciona Spring boot voy a describir de forma pormenorizada los dos nodos de decisión en color amarillo y todos los nodos de salida o páginas HTML (rectangulos naranja) que son contiguos a ellos dos del [diagrama de flujo](#3-diagrama-de-flujo) del tercer apartado. De este modo, explicaré a grandes rasgos como se estructura un proyecto en Spring boot en sus distintas partes organizativas partiendo del paradigma del modelo vista controlador o MVC (en este caso: modelo, repositorio, servicio y controlador). Además, también quisiera tratar de demostrar como podemos utilizar este framework para traducir el código en resultados tangibles que nos ayuden con una lógica de negocio enfocada a captar clientes ya desde sus primeras interacciones.
 
 Finalmente, mencionar que no se comentarán aspectos de los estilos del front-end aunque si el lector tiene preguntas puede escribirme por linkedin y preguntar lo que desee. Asimismo, aspectos como la generación de tokens JWT o gestión de cookies no se tratan en este repositorio.
 
 
 # 2. Recomendaciones para ejecutar el proyecto
 
-Se recomienda al lector que, si quiere probar y ver la aplicación web con todas sus características, haga un clone del repositorio y abra en local cada uno de los tres proyectos con su editor correspondiente. De este modo cada editor expondrá una URL y un puerto en el mismo equipo[^2]:
+Se recomienda al lector que, si quiere probar y ver la aplicación web con todas sus características, empiece haciendo un clone del repositorio en local usando su terminal:
+
+```git clone https://github.com/blackcub3s/miApp```
+
+Acto seguido, que abra y ejecute cada uno de los tres proyectos con su editor correspondiente. De este modo, cada editor expondrá una URL y un puerto en el mismo equipo[^2] simulando un servidor distinto para cada uno:
 
 - **[el front-end](/APP%20WEB/__frontend__produccio__/landingPage/)**: se recomienda abrirlo con el editor `vscode`, y ejecutar la página [pas1_landingSignUp.html](/APP%20WEB/__frontend__produccio__/landingPage/pas1_landingSignUp.html) mediante la extensión "live server".
 - **[la base de datos](/APP%20WEB/___BBDD___/estructuraTaules/pirApp.sql)**: se aconseja abrirla y definir una conexión con la misma mediante el editor `mysql workbench`.
