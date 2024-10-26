@@ -196,13 +196,16 @@ Mostrándose así:
 ![no se mostró imagen iniciar sesion](/img/correuAmbAccesLogin.png)
 
 
-## 3.3 Existe correo de usuario pero el usuario NO tiene acceso a recursos
+## 3.3 Redirección a página de introducir contraseña (Existe correo de usuario y contraseña, pero el usuario NO tiene acceso a recursos)
 
-Posar link a `pas2B_introduirContrasenya.html` 
+En este caso en el que el se devolverá desde el back-end al front-end el JSON `{"existeixUsuari": true, "teAccesArecursos": false}`
+nos interesa redirigir al usuario desde la landing page hasta [pas2B_introduirContrasenya.html](/APP%20WEB/__frontend__produccio__/landingPage/pas2B_introduirContrasenya.html) dado que el usuario no va tener los mismos privilegios de iniciar sesión que el usuario que está en el paso 3.2, dado que no está pagando por recursos; pero sí que en el pasado o bien se empezó a registrar o bien estuvo pagando por unos recursos a los que ahora ya no tiene acceso (e.g., porque anuló la suscripción de pago).
+
+En este caso solo quedaría pedirle que introduzca su contraseña para luego llevarle a escoger qué plan quiere (directamente le llevaríamos a <b>pas5_EscullPlan.html</b>, archivo que para esta demostración no hemos creado).
 
 ## 3.4 No existe correo (no existe usuario)
 
-Posar link a `pas2A_infoBenvinguda.html`
+ Si se devuelve `{"existeixUsuari": true, "teAccesArecursos": false}` al front-end ello significará que el usuario no està registrado, nunca ha iniciado un proceso de registro y por lo tanto debemos redirigirle al primer paso [pas2A_infoBenvinguda.html](/APP%20WEB/__frontend__produccio__/landingPage/pas2A_infoBenvinguda.html).
 
 
 
