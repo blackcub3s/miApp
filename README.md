@@ -204,7 +204,7 @@ En este caso solo quedaría pedirle que introduzca su contraseña para luego lle
 
 ## 3.4 No existe correo (no existe usuario)
 
- Si se devuelve `{"existeixUsuari": true, "teAccesArecursos": false}` al front-end ello significará que el usuario no está registrado en nuestra web. Nunca ha iniciado un proceso de registro que culminase con una introducción de correo y de contraseña y, por lo tanto, debemos redirigirle al primer paso [pas2A_infoBenvinguda.html](/APP%20WEB/__frontend__produccio__/landingPage/pas2A_infoBenvinguda.html). No será hasta que el usuario haya introducido el correo 
+ Si se devuelve `{"existeixUsuari": true, "teAccesArecursos": false}` al front-end ello significará que el usuario no está registrado en nuestra web. Nunca ha iniciado un proceso de registro que culminase con una introducción de correo y de contraseña y, por lo tanto, debemos redirigirle al primer paso [pas2A_infoBenvinguda.html](/APP%20WEB/__frontend__produccio__/landingPage/pas2A_infoBenvinguda.html). No será hasta que el usuario haya introducido el correo y la contraseña en el siguiente paso [pas2B_introduirContrasenya](/APP%20WEB/__frontend__produccio__/landingPage/pas2B_introduirContrasenya.html) que el usuario estará formalmente registrado en la base de datos (inicialmente sin acceso a recursos).
 
 
 
