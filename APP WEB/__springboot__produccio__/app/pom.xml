@@ -63,11 +63,22 @@
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 
-
+		<!-- evita el boilerplate -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 		</dependency>
+
+
+		<!-- permet visualitzar els RESTful endpoints dels spring boot actuators,
+		per veure mètriques de l'aplicació.-->
+
+		<!--
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		-->
 
 
 	</dependencies>

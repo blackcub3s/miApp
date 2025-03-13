@@ -25,7 +25,8 @@ CREATE TABLE usuari_ampliat ( -- nomes usuaris quan JA HAN PAGAT o han pagat alg
         ON UPDATE CASCADE
 );
 
-
+/*HO AFEGIM DES DEL BACKEND PER LES PROVES*/
+/*
 INSERT INTO usuari(correu_electronic, hash_contrasenya, alies, pla_suscripcio_actual) 
 VALUES ('acces@gmail.com', "123","blackcub3s",1);
 
@@ -40,4 +41,5 @@ SELECT * FROM usuari_ampliat;
 UPDATE usuari
 SET pla_suscripcio_actual = 1
 WHERE correu_electronic = "santiago.sanchez.sans.44@gmail.com";
+*/
 
