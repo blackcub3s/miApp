@@ -26,12 +26,12 @@ CREATE TABLE usuari_ampliat ( -- nomes usuaris quan JA HAN PAGAT o han pagat alg
 );
 
 /*HO AFEGIM DES DEL BACKEND PER LES PROVES*/
-/*
-INSERT INTO usuari(correu_electronic, hash_contrasenya, alies, pla_suscripcio_actual) 
-VALUES ('acces@gmail.com', "123","blackcub3s",1);
 
 INSERT INTO usuari(correu_electronic, hash_contrasenya, alies, pla_suscripcio_actual) 
-VALUES ('noacces@gmail.com', "123","whitecub3s",0);
+VALUES ('acces@gmail.com', "1234","blackcub3s",1);
+
+INSERT INTO usuari(correu_electronic, hash_contrasenya, alies, pla_suscripcio_actual) 
+VALUES ('noacces@gmail.com', "1234","whitecub3s",0);
 -- INSERT INTO usuari(correu_electronic, hash_contrasenya, alies, pla_suscripcio_actual) VALUES ('sant.44@gmail.com', "asd","copernic",0);
 -- INSERT INTO usuari_ampliat (id_usuari, nom, primer_cognom, segon_cognom) VALUES (4, "santi", "sanchez","sans");
 
@@ -41,5 +41,5 @@ SELECT * FROM usuari_ampliat;
 UPDATE usuari
 SET pla_suscripcio_actual = 1
 WHERE correu_electronic = "santiago.sanchez.sans.44@gmail.com";
-*/
+
 

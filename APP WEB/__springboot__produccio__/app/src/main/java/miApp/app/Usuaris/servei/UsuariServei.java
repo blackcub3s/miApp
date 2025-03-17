@@ -136,6 +136,16 @@ public class UsuariServei {
         }
     }
 
+    public List<Usuari> trobaTotsElsUsuaris() {
+        return repoUsuari.findAll();
+    }
+
+    //SI EL TROBA TORNA L'USUARI. EN CAS CONTRARI RETORNA
+    public Usuari trobaPerId(int id) {
+        return repoUsuari.findById(id).orElse(null); //agafem funció de llibreria JPA
+    }
+
+
 
 
 
