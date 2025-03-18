@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController //RETORNA DADES EN LLOC DE VISTES (VISTES ERIA @CONTROLLER)
@@ -146,7 +147,8 @@ public class UsuariControlador {
 
     //CONTROLADORS PER TROBAR (COMPTE CAL PROTEGIR-LOS!!!)
     //  - nreUsuaris -
-    //  - usuaris --> totes les dades de la taula
+    //  - usuaris
+    //  - crearNouUsuari
 
 
 
@@ -185,12 +187,16 @@ public class UsuariControlador {
     //     SI NO EXISTEIX ------> torno un 201 (i creo l'usuari a la bbdd).
     @PostMapping("/usuaris")
     public ResponseEntity<Usuari> creaUsuari(@RequestBody Usuari usuari) {
-        Usuari nouUsuari = serveiUPP.guardaUsuari(usuari);
-        if (nouUsuari == null) { //si nouUsuari es null es que no es pot afegir perquè ja existeix.
-            return new ResponseEntity<>(HttpStatus.CONFLICT); //torno 409 CONFLICT (Correu de la BBDD es unique i s'intenta afegir un correu que ja existeix). És mes informatiu que no pas tornar un 500)
+        Optional<Usuari> nouUsuariOPTIONAL = serveiUPP.guardaUsuari(usuari);
+
+        if (nouUsuariOPTIONAL.isPresent()) { //si usuari s'ha afegit, aquest tipus Optional tindrà un usuari dins
+            Usuari nouUsuari = nouUsuariOPTIONAL.get();
+            return new ResponseEntity<>(nouUsuari, HttpStatus.CREATED); // 201 CREATED si es crea correctament
+        } else {
+            return new ResponseEntity<>(HttpStatus.CONFLICT); // 409 CONFLICT (l'usuari ja existia! i no s'ha afegit a la bbdd)
         }
-        return new ResponseEntity<>(nouUsuari, HttpStatus.CREATED); // 201 CREATED quan es crea correctament
     }
+
 }
 
 

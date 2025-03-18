@@ -114,7 +114,7 @@ public class UsuariServei {
 
 
 
-
+    //MOSTRA TOTS ELS USUARIS (SI NO N'HI HA TORNAR AUN ALLISTA BUIDA)
     public List<Usuari> trobaTotsElsUsuaris() {
         return repoUsuari.findAll();
     }
@@ -124,18 +124,15 @@ public class UsuariServei {
         return repoUsuari.findById(id).orElse(null); //agafem funció de llibreria JPA
     }
 
-    //NOTA; FUNCIO save de JPA ja automàticament fa:
-    // SI Existeix usuari -----> actualitza la fila de la bbdd on pertany.
-    // SI NO existeix usuari --> l'afegeix com a l'id més alt.
 
-    //AQUI NO VOLEM ACTUALITZAR, SI USUARI ESTÀ CREAT HEM D'IMPEDI CANVIS:
-    public Usuari guardaUsuari(Usuari usuari) {
-        String correuE = usuari.getCorreuElectronic(); //compte que perquè aquesta linia funcioni has de tenir instal·lat LomBok (Extensio de IntelliJ idea: la dependencia afegida al POM.xml).
-        Optional<String> correuUsuari = repoUsuari.trobaStringUsuariPerCorreu(correuE); //SI EXISTEIX EL CORREU, EXISTEIX L'USUARI.
-        //SI RETORNA UN CORREU RETORNO NULL
-        if (correuUsuari.isPresent())
-            return null;
-        else
-            return repoUsuari.save(usuari);
+    //CREA NOU USUARI (SI EXISTEIX NO L'ACTUALITZA).
+    public Optional<Usuari> guardaUsuari(Usuari usuari) {
+        if (repoUsuari.trobaStringUsuariPerCorreu(usuari.getCorreuElectronic()).isPresent()) {
+            return Optional.empty(); // Si l'usuari ja existeix, torna un optional buit.
+        }
+        return Optional.of(repoUsuari.save(usuari)); // Si l'usuari no existeix encara, el guardo i el retorno
     }
+
+
+
 }
