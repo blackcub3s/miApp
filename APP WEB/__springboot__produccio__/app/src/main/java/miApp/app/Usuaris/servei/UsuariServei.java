@@ -110,31 +110,10 @@ public class UsuariServei {
     }
 
 
-    //PRE: existeix JA un usuari a la taula usuari amb id_usuari idèntic al paràmetre idUsuari.
-    //POST: la taula usuari_ampliat contindrà una nova fila (si no existeix cap registre amb identificador "idUsuari")
-    //      o s'actualitzarà la fila actual (si ja existeix un usuariAmpliat amb id idUsuari).
-    //
-    //      NOTA: SI NO ES COMPLIS LA CPRECONDICIO D'EXISTÈNCIA DE un Usuari a la taula pare (Usuari)
-    //      amb id_usuari igual a idUsuari aleshores questa funcio imprimiria per pantalla que no s'ha pogut guardar
-    //      i no s'alteraria la taula usuari_ampliat.
-    public void afegirOactualitzarUsuariAmpliat(Integer idUsuari, String nom, String primerCognom, String segonCognom) {
-        // Trobo si l'usuari (de la taula pare) existeix! Ha d'existir sempre primer!
-        Integer idUsuariRecuperat = repoUsuari.trobaId(idUsuari);
-        if (!Objects.equals(idUsuariRecuperat, idUsuari)) {
-            System.out.println("Usuari no és a la taula pare! Compte! No s'ha afegit a la taula filla UsuariAmpliat!");
-        }
-        else {
-            //si som aquí és que hi ha usuari. L'usuari existeix i per tant podem procedir a afegir usuariampliat
-            UsuariAmpliat nouUsuariAmpliat = new UsuariAmpliat();
-            nouUsuariAmpliat.setIdUsuari(idUsuari); // Aquesta clau de usuariAmpliat queda mapejada a la clau de usuari (com al codi sql)
-            nouUsuariAmpliat.setNom(nom);
-            nouUsuariAmpliat.setPrimerCognom(primerCognom);
-            nouUsuariAmpliat.setSegonCognom(segonCognom);
 
-            // Guardar el usuario ampliado (per primer cop o per actualitzr-lo)
-            repoUsuariAmpliat.save(nouUsuariAmpliat);
-        }
-    }
+
+
+
 
     public List<Usuari> trobaTotsElsUsuaris() {
         return repoUsuari.findAll();
@@ -145,8 +124,18 @@ public class UsuariServei {
         return repoUsuari.findById(id).orElse(null); //agafem funció de llibreria JPA
     }
 
+    //NOTA; FUNCIO save de JPA ja automàticament fa:
+    // SI Existeix usuari -----> actualitza la fila de la bbdd on pertany.
+    // SI NO existeix usuari --> l'afegeix com a l'id més alt.
 
-
-
-
+    //AQUI NO VOLEM ACTUALITZAR, SI USUARI ESTÀ CREAT HEM D'IMPEDI CANVIS:
+    public Usuari guardaUsuari(Usuari usuari) {
+        String correuE = usuari.getCorreuElectronic(); //compte que perquè aquesta linia funcioni has de tenir instal·lat LomBok (Extensio de IntelliJ idea: la dependencia afegida al POM.xml).
+        Optional<String> correuUsuari = repoUsuari.trobaStringUsuariPerCorreu(correuE); //SI EXISTEIX EL CORREU, EXISTEIX L'USUARI.
+        //SI RETORNA UN CORREU RETORNO NULL
+        if (correuUsuari.isPresent())
+            return null;
+        else
+            return repoUsuari.save(usuari);
+    }
 }

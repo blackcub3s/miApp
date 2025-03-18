@@ -46,8 +46,4 @@ public interface UsuariRepositori extends JpaRepository<Usuari, Integer> {
     Optional<Usuari> obtinguesUsuariPerId(@Param("idenete") Byte id);
 
 
-
-
-
-
 }

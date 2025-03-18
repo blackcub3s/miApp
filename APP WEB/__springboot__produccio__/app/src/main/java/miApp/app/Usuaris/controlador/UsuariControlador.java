@@ -169,7 +169,7 @@ public class UsuariControlador {
         return new ResponseEntity<>(serveiUPP.trobaTotsElsUsuaris(), HttpStatus.OK);
     }
 
-    //METODE PER TROBAR UN USUARI PER ID
+    //METODE PER TROBAR UN USUARI PER ID --------------------------------> LA R DEL CRUD
     @GetMapping("/usuaris/{id}")
     public ResponseEntity<Usuari> obtinguesUsuari(@PathVariable("id") int id) {
         Usuari usuari= serveiUPP.trobaPerId(id);
@@ -179,8 +179,18 @@ public class UsuariControlador {
         return new ResponseEntity<>(usuari, HttpStatus.OK);
     }
 
-
-
+    //METODE PER CREAR UN USUARI DIRECTAMENT (CURS SPRING FUNDAMENTALS) --> LA C DEL CRUD [ESTUDIA SUBSTITUIR-LO PER registraUsuari I FER CANVIS EN FRONT]
+    //
+    //     SI EXISTEIX USUARI --> torno un 409
+    //     SI NO EXISTEIX ------> torno un 201 (i creo l'usuari a la bbdd).
+    @PostMapping("/usuaris")
+    public ResponseEntity<Usuari> creaUsuari(@RequestBody Usuari usuari) {
+        Usuari nouUsuari = serveiUPP.guardaUsuari(usuari);
+        if (nouUsuari == null) { //si nouUsuari es null es que no es pot afegir perquè ja existeix.
+            return new ResponseEntity<>(HttpStatus.CONFLICT); //torno 409 CONFLICT (Correu de la BBDD es unique i s'intenta afegir un correu que ja existeix). És mes informatiu que no pas tornar un 500)
+        }
+        return new ResponseEntity<>(nouUsuari, HttpStatus.CREATED); // 201 CREATED quan es crea correctament
+    }
 }
 
 

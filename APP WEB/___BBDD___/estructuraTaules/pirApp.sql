@@ -38,6 +38,7 @@ VALUES ('noacces@gmail.com', "1234","whitecub3s",0);
 SELECT * FROM usuari;
 SELECT * FROM usuari_ampliat;
 
+
 UPDATE usuari
 SET pla_suscripcio_actual = 1
 WHERE correu_electronic = "santiago.sanchez.sans.44@gmail.com";
