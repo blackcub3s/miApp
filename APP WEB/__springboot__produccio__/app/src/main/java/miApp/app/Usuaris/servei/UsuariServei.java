@@ -111,6 +111,10 @@ public class UsuariServei {
 
 
 
+    //------------------------------------
+    //AFEGIT MENTRE VAIG FENT CURS (CRUD)
+    //------------------------------------
+
 
 
 

@@ -116,20 +116,12 @@ public class UsuariControlador {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    //PRE: existeix la bbdd i la taula de usuaris (no hi ha parametres d'entrada)
+    //POST: Obtens el nombre d'usuaris que hi ha a la teva aplicacio a l'endpoint.
+    @GetMapping("/correusUsuaris")
+    public ResponseEntity<List<String>> mostraLlistaUsuaris() { //ni RequestBody ni RequestParam, perque no hi ha dades d'entrada.
+        return new ResponseEntity<>(serveiUPP.correusUsuarisApp(), HttpStatus.OK);
+    }
 
 
 
@@ -145,23 +137,17 @@ public class UsuariControlador {
 
 
 
-    //CONTROLADORS PER TROBAR (COMPTE CAL PROTEGIR-LOS!!!)
-    //  - nreUsuaris -
-    //  - usuaris
-    //  - crearNouUsuari
+
+
+
+    //------------------------------------
+    //AFEGIT MENTRE VAIG FENT CURS (CRUD)
+    //------------------------------------
 
 
 
 
 
-
-
-    //PRE: existeix la bbdd i la taula de usuaris (no hi ha parametres d'entrada)
-    //POST: Obtens el nombre d'usuaris que hi ha a la teva aplicacio a l'endpoint.
-    @GetMapping("/correusUsuaris")
-    public ResponseEntity<List<String>> mostraLlistaUsuaris() { //ni RequestBody ni RequestParam, perque no hi ha dades d'entrada.
-        return new ResponseEntity<>(serveiUPP.correusUsuarisApp(), HttpStatus.OK);
-    }
 
     //MOSTRA UNA LLSTA DE TOTS ELS USUARIS AMB TOTES LES DADES DE LA TAULA D'USUARIS --> R DEL CRUD
     // (SI NO HI HA USUARIS SEGUEIX MOSTRANT 200 OK, PERÒ RETORNA AL CLIENT
@@ -200,19 +186,6 @@ public class UsuariControlador {
         }
     }
 
-    //MÈTODE PER A ESBORRAR UN USUARI () --> LA D DEL CRUD
-
-    //      SI S'HA ESBORRAT USUARI -------> torno un 204 (no content, ok)
-    //      SI NO S'HA ESBORRAT L'USUARI --> torno un 404 (recurs no trobat)
-    @DeleteMapping("/usuaris/{id}")
-    public ResponseEntity<Void> esborraUsuari(@PathVariable("id") int id) { //compte al void, que no pots usar el tipus primitiu. Has d'usar la wrapper class (Void)
-        boolean usuariEsborrat = serveiUPP.esborraUsuari(id);
-        if (usuariEsborrat) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT); //SI USUARI S'HA POGUT ESBORRAR (AIXÒ ÉS, EXISTIA) ENVIO UN CODI D'ÈXIT: EL 204 (NO CONTENT)
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND); //SI USUARI NO S'HA POGUT ESBORRAR (AIXÒ ÉS, NO EXISTIA) ENVIO UN CODI D'ERROR 404 (JA QUE EL RECURS A TROBAR NO S'HAVIA TROBAT!)
-        }
-    }
 
     //MÈTODE PER A CANVIAR TOTES LES DADES D'UN USUARI --> la U DEL CRUD (UN PUT, QUE TÉ COS COM UN POST I PASSA TOT EL RECURS PEL BODY)
     //
@@ -225,7 +198,7 @@ public class UsuariControlador {
             {
                 "correuElectronic": "titu9@exemplete.com",
                 "hashContrasenya": "ijk",
-                "alies": "haurai de donar errorete",
+                "alies": "chuckUson",
                 "plaSuscripcioActual": 0
             }
     //POST: guarda les dades a la bbdd i mostra el que s'ha guardat en JSON
@@ -249,6 +222,22 @@ public class UsuariControlador {
         }
     }
 
+
+
+
+    //MÈTODE PER A ESBORRAR UN USUARI () --> LA D DEL CRUD
+
+    //      SI S'HA ESBORRAT USUARI -------> torno un 204 (no content, ok)
+    //      SI NO S'HA ESBORRAT L'USUARI --> torno un 404 (recurs no trobat)
+    @DeleteMapping("/usuaris/{id}")
+    public ResponseEntity<Void> esborraUsuari(@PathVariable("id") int id) { //compte al void, que no pots usar el tipus primitiu. Has d'usar la wrapper class (Void)
+        boolean usuariEsborrat = serveiUPP.esborraUsuari(id);
+        if (usuariEsborrat) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT); //SI USUARI S'HA POGUT ESBORRAR (AIXÒ ÉS, EXISTIA) ENVIO UN CODI D'ÈXIT: EL 204 (NO CONTENT)
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND); //SI USUARI NO S'HA POGUT ESBORRAR (AIXÒ ÉS, NO EXISTIA) ENVIO UN CODI D'ERROR 404 (JA QUE EL RECURS A TROBAR NO S'HAVIA TROBAT!)
+        }
+    }
 
     //MÈTODE PER A CANVIAR DADES PARCIALS D'UN USUARI --> la U del CRUD (UN PATCH).
     // TO DO --> @PatchMapping("/usuaris/{id}")
