@@ -134,6 +134,15 @@ public class UsuariServei {
         return Optional.of(repoUsuari.save(usuari)); // Si l'usuari no existeix encara, el guardo i el retorno
     }
 
-
+    //PRE: un usuari per paràmetre
+    //POST: si usuari existia a BBDD s'esborra i retorna true. En cas contrari, no es fa res, i es retorna false.
+    public boolean esborraUsuari(int id) {
+        Optional<Usuari> usuariOp = this.trobaPerId(id);
+        if (usuariOp.isPresent()) {
+            repoUsuari.delete(usuariOp.get());
+            return true;
+        }
+        return false;
+    }
 
 }

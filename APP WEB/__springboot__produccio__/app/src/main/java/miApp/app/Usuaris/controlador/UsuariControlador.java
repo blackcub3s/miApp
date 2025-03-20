@@ -181,7 +181,7 @@ public class UsuariControlador {
         return new ResponseEntity<>(usuari.get(), HttpStatus.OK);
     }
 
-    //METODE PER CREAR UN USUARI DIRECTAMENT (CURS SPRING FUNDAMENTALS) --> LA C DEL CRUD [ESTUDIA SUBSTITUIR-LO PER registraUsuari I FER CANVIS EN FRONT]
+    //METODE PER CREAR UN USUARI DIRECTAMENT (CURS SPRING FUNDAMENTALS MILLORAT AMB BONES PRÀCTIQUES) --> LA C DEL CRUD [ESTUDIA SUBSTITUIR-LO PER registraUsuari I FER CANVIS EN FRONT]
     //
     //     SI EXISTEIX USUARI --> torno un 409
     //     SI NO EXISTEIX ------> torno un 201 (i creo l'usuari a la bbdd).
@@ -197,12 +197,22 @@ public class UsuariControlador {
         }
     }
 
-    /*
-    @DeleteMapping("/usuaris/{id}")
-    public ResponseEntity<void> esborraUsuari(@PathVariable("id") int id) {
+    //MÈTODE PER A ESBORRAR UN USUARI () --> LA D DEL CRUD
 
+    //      SI S'HA ESBORRAT USUARI -------> torno un 204 (no content, ok)
+    //      SI NO S'HA ESBORRAT L'USUARI --> torno un 404 (recurs no trobat)
+    @DeleteMapping("/usuaris/{id}")
+    public ResponseEntity<Void> esborraUsuari(@PathVariable("id") int id) { //compte al void, que no pots usar el tipus primitiu. Has d'usar la wrapper class (Void)
+        boolean usuariEsborrat = serveiUPP.esborraUsuari(id);
+        if (usuariEsborrat) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT); //SI USUARI S'HA POGUT ESBORRAR (AIXÒ ÉS, EXISTIA) ENVIO UN CODI D'ÈXIT: EL 204 (NO CONTENT)
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND); //SI USUARI NO S'HA POGUT ESBORRAR (AIXÒ ÉS, NO EXISTIA) ENVIO UN CODI D'ERROR 404 (JA QUE EL RECURS A TROBAR NO S'HAVIA TROBAT!)
+        }
     }
-    */
+
+
+
 
 
 }
