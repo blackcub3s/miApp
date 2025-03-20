@@ -163,7 +163,7 @@ public class UsuariControlador {
         return new ResponseEntity<>(serveiUPP.correusUsuarisApp(), HttpStatus.OK);
     }
 
-    //MOSTRA UNA LLSTA DE TOTS ELS USUARIS AMB TOTES LES DADES DE LA TAULA D'USUARIS
+    //MOSTRA UNA LLSTA DE TOTS ELS USUARIS AMB TOTES LES DADES DE LA TAULA D'USUARIS --> R DEL CRUD
     // (SI NO HI HA USUARIS SEGUEIX MOSTRANT 200 OK, PERÒ RETORNA AL CLIENT
     //  UNA RESPONSE ENTITY: LLISTA BUIDA BÀSICAMENT)
     @GetMapping("/usuaris")
@@ -185,6 +185,9 @@ public class UsuariControlador {
     //
     //     SI EXISTEIX USUARI --> torno un 409
     //     SI NO EXISTEIX ------> torno un 201 (i creo l'usuari a la bbdd).
+
+    //PRE: POTS VEURE EL PRE DE PUT, QUE ÉS IGUAL
+    //POST: POTS VEURE EL POST DE PUT, QUE ÉS IGUAL.
     @PostMapping("/usuaris")
     public ResponseEntity<Usuari> creaUsuari(@RequestBody Usuari usuari) {
         Optional<Usuari> nouUsuariOPTIONAL = serveiUPP.guardaUsuari(usuari);
@@ -211,7 +214,44 @@ public class UsuariControlador {
         }
     }
 
+    //MÈTODE PER A CANVIAR TOTES LES DADES D'UN USUARI --> la U DEL CRUD (UN PUT, QUE TÉ COS COM UN POST I PASSA TOT EL RECURS PEL BODY)
+    //
+    //      SI S'HA ACTUALITZAT USUARI ----------------------> torno un 200 (OK)
+    //      SI NO S'HA TROBAT (ergo, no s'ha actualitzat)----> torno un 404 (recurs no trobat)
+    //      SI S'INTENTA AFEGIR UN CORREU JA EXISTENT A UN USUARI DIFERENT --------> tornarà internal server error (500, compte --> millorable)
 
+    /*
+    //PRE: Des del client entrarà un JSON de l'estil i a la URL posaras l'URI http://localhost:8080/api/usuaris/4 si l'usuari te idUsuari 4.
+            {
+                "correuElectronic": "titu9@exemplete.com",
+                "hashContrasenya": "ijk",
+                "alies": "haurai de donar errorete",
+                "plaSuscripcioActual": 0
+            }
+    //POST: guarda les dades a la bbdd i mostra el que s'ha guardat en JSON
+            {
+                "idUsuari": 4,
+                "correuElectronic": "titu9@exemplete.com",
+                "hashContrasenya": "ijk",
+                "alies": "chuckUson",
+                "plaSuscripcioActual": 0
+            }
+    */
+    @PutMapping("/usuaris/{id}")
+    public ResponseEntity<Usuari> actualitzaUsuari(@RequestBody Usuari usuari, @PathVariable("id") int id) {
+        Optional<Usuari> usuariActualitzatOPTIONAL = serveiUPP.actualitzaUsuari(usuari, id);
+
+        if (usuariActualitzatOPTIONAL.isPresent()) { //si usuari s'ha afegit, aquest tipus Optional tindrà un usuari dins
+            Usuari usuariActualitzat = usuariActualitzatOPTIONAL.get();
+            return new ResponseEntity<>(usuariActualitzat, HttpStatus.OK); // 200 si s'ha actualitzat correctament (i torno l'usuari actualtizat)
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND); // 404 l'usuari que vols actualitzar NO existeix!
+        }
+    }
+
+
+    //MÈTODE PER A CANVIAR DADES PARCIALS D'UN USUARI --> la U del CRUD (UN PATCH).
+    // TO DO --> @PatchMapping("/usuaris/{id}")
 
 
 

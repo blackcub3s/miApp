@@ -134,7 +134,7 @@ public class UsuariServei {
         return Optional.of(repoUsuari.save(usuari)); // Si l'usuari no existeix encara, el guardo i el retorno
     }
 
-    //PRE: un usuari per paràmetre
+    //PRE: un usuari per paràmetre.
     //POST: si usuari existia a BBDD s'esborra i retorna true. En cas contrari, no es fa res, i es retorna false.
     public boolean esborraUsuari(int id) {
         Optional<Usuari> usuariOp = this.trobaPerId(id);
@@ -145,4 +145,26 @@ public class UsuariServei {
         return false;
     }
 
+    //PRE: un usuari per paràmetre i l'identificador
+    //POST: si l'usuari existeix s'actualitza el recurs d'usuari
+    //      i es torna l'usuari actualitzat dins un optional. En cas contrari,
+    //      no s'actualitza res i es torna l'optional.empty()
+    public Optional<Usuari> actualitzaUsuari(Usuari usuari, int id) {
+        Optional<Usuari> usuariActualitzatOPCIONAL = this.trobaPerId(id); //si no el troba usuariActualitzatOPCIONAL serà buit
+        if (usuariActualitzatOPCIONAL.isEmpty()) {
+            return Optional.empty();
+        } else {
+            Usuari usuariActualitzat = usuariActualitzatOPCIONAL.get();
+
+            //poso les dades de l'usuari que entra per paràmetre al nou usuari actualitzat
+            usuariActualitzat.setCorreuElectronic(usuari.getCorreuElectronic()); //poso el nou mail
+            usuariActualitzat.setHashContrasenya(usuari.getHashContrasenya());   //poso la nova contra.
+            usuariActualitzat.setAlies(usuari.getAlies()); //poso el nou alies
+            usuariActualitzat.setPlaSuscripcioActual(usuari.getPlaSuscripcioActual());    //poso el nou pla de suscripcio
+
+            //guardo l'usuari actualitzat i el que ja s'ha guardat el passo al controlador per veure'l
+            Usuari usuariActualitzatGUARDAT = repoUsuari.save(usuariActualitzat);
+            return Optional.of(usuariActualitzatGUARDAT);
+        }
+    }
 }
