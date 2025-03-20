@@ -240,8 +240,20 @@ public class UsuariControlador {
     }
 
     //MÈTODE PER A CANVIAR DADES PARCIALS D'UN USUARI --> la U del CRUD (UN PATCH).
-    // TO DO --> @PatchMapping("/usuaris/{id}")
+    /*
+    @PatchMapping("usuaris/{id}/contrasenya")
+    public ResponseEntity<String> actualitzaContrasenya(@PathVariable("id") int id, @Valid @RequestBody ActualitzaContrasenyaDTO dto) {
+        Optional<Usuari> usuariActualitzatOPTIONAL = serveiUPP.actualitzaContrasenya(id, dto.getHashContrasenya());
 
+        if (usuariActualitzatOPTIONAL.isPresent()) {
+            return new ResponseEntity<>("Contraseña actualizada correctamente.", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Usuario no encontrado.", HttpStatus.NOT_FOUND);
+
+        }
+    }
+
+     */
 
 
 }
