@@ -120,8 +120,9 @@ public class UsuariServei {
     }
 
     //SI EL TROBA TORNA L'USUARI. EN CAS CONTRARI RETORNA
-    public Usuari trobaPerId(int id) {
-        return repoUsuari.findById(id).orElse(null); //agafem funció de llibreria JPA
+    public Optional<Usuari> trobaPerId(int id) {
+        Optional<Usuari> usuariOp = repoUsuari.findById(id);
+        return usuariOp;
     }
 
 

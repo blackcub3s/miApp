@@ -174,11 +174,11 @@ public class UsuariControlador {
     //METODE PER TROBAR UN USUARI PER ID --------------------------------> LA R DEL CRUD
     @GetMapping("/usuaris/{id}")
     public ResponseEntity<Usuari> obtinguesUsuari(@PathVariable("id") int id) {
-        Usuari usuari= serveiUPP.trobaPerId(id);
-        if (usuari == null) {
+        Optional<Usuari> usuari = serveiUPP.trobaPerId(id);
+        if (usuari.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND); //retorno codi d'error 404 (no trobat)
         }
-        return new ResponseEntity<>(usuari, HttpStatus.OK);
+        return new ResponseEntity<>(usuari.get(), HttpStatus.OK);
     }
 
     //METODE PER CREAR UN USUARI DIRECTAMENT (CURS SPRING FUNDAMENTALS) --> LA C DEL CRUD [ESTUDIA SUBSTITUIR-LO PER registraUsuari I FER CANVIS EN FRONT]
@@ -196,6 +196,14 @@ public class UsuariControlador {
             return new ResponseEntity<>(HttpStatus.CONFLICT); // 409 CONFLICT (l'usuari ja existia! i no s'ha afegit a la bbdd)
         }
     }
+
+    /*
+    @DeleteMapping("/usuaris/{id}")
+    public ResponseEntity<void> esborraUsuari(@PathVariable("id") int id) {
+
+    }
+    */
+
 
 }
 
