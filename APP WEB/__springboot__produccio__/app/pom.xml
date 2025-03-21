@@ -70,15 +70,14 @@
 		</dependency>
 
 
-		<!-- permet visualitzar els RESTful endpoints dels spring boot actuators,
-		per veure mètriques de l'aplicació.-->
-
-		<!--
+		<!-- permet visualitzar incorporar les validacions a les classes DTO. @NotBlank, @Size
+		     que s'activen quan fas @Validate al paràmetre del controlador en fer un PATCH, per exemple.-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-actuator</artifactId>
+			<artifactId>spring-boot-starter-validation</artifactId>
 		</dependency>
-		-->
+
+
 
 
 	</dependencies>

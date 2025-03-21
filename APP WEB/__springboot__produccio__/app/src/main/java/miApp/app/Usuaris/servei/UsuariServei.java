@@ -2,6 +2,7 @@
 
 package miApp.app.Usuaris.servei;
 
+import miApp.app.Usuaris.dto.ActualitzaContrasenyaDTO;
 import miApp.app.Usuaris.repositori.UsuariAmpliatRepositori;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -171,4 +172,35 @@ public class UsuariServei {
             return Optional.of(usuariActualitzatGUARDAT);
         }
     }
+
+
+
+
+
+    public Optional<Usuari> actualitzaContrasenya(ActualitzaContrasenyaDTO dto, int id) {
+        Optional<Usuari> usuariPreActualitzacio_OPCIONAL = this.trobaPerId(id);
+        if (usuariPreActualitzacio_OPCIONAL.isEmpty()) {
+            return Optional.empty();
+        } else {
+            Usuari usuariPreActualitzacio = usuariPreActualitzacio_OPCIONAL.get();
+
+            // Solo actualizamos la contraseña
+            if (dto.getHashContrasenya() != null) {
+                usuariPreActualitzacio.setHashContrasenya(dto.getHashContrasenya());
+            }
+
+            // Guardamos el usuario actualizado
+            Usuari usuariPostActualitzacio_GUARDAT = repoUsuari.save(usuariPreActualitzacio);
+            return Optional.of(usuariPostActualitzacio_GUARDAT);
+        }
+    }
+
+
+
+
+
+
+
+
+
 }

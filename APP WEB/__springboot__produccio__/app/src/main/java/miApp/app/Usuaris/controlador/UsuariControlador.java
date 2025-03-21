@@ -6,6 +6,8 @@ package miApp.app.Usuaris.controlador;
 //PAS4: Controlador Rest. Amb aixo exposarem l'endpoint que creem al servei UsuariPrePago. Injectarem
 // la dependència del Servei.
 
+import jakarta.validation.Valid;
+import miApp.app.Usuaris.dto.ActualitzaContrasenyaDTO;
 import miApp.app.Usuaris.model.Usuari;
 import miApp.app.Usuaris.repositori.UsuariRepositori;
 import miApp.app.Usuaris.servei.UsuariServei;
@@ -19,8 +21,8 @@ import java.util.List;
 import java.util.Optional;
 
 
-@RestController //RETORNA DADES EN LLOC DE VISTES (VISTES ERIA @CONTROLLER)
-@RequestMapping("/api")  // Optional: define a common base path for your REST endpoints
+@RestController           //RestController --> l'anotació RestController retorna dades en comptes de vistes (vistes, en canvi, seria @CONTROLLER, que no ho usarem perquè el front va en un altre servidor -vscode live server-)
+@RequestMapping("/api")   //RequestMapping --> és una anotació OPCIONAl que et defineix una ruta base per als REST endpoints que crearàs en aquest controlador. p.ex, si tens @RequestMapping("/api") com a anotació damunt de la classe UsuariControlador i després en un endpoint de solicitud get tens  @GetMapping("/usuaris"), hauràs de fer la solicitud a localhost:8080/api/usuaris.
 public class UsuariControlador {
 
     private final UsuariServei serveiUPP; //millor fer-ho final
@@ -240,20 +242,19 @@ public class UsuariControlador {
     }
 
     //MÈTODE PER A CANVIAR DADES PARCIALS D'UN USUARI --> la U del CRUD (UN PATCH).
-    /*
+    //   EN AQUEST CAS CANVIEM LA CONTRASENYA.
     @PatchMapping("usuaris/{id}/contrasenya")
-    public ResponseEntity<String> actualitzaContrasenya(@PathVariable("id") int id, @Valid @RequestBody ActualitzaContrasenyaDTO dto) {
-        Optional<Usuari> usuariActualitzatOPTIONAL = serveiUPP.actualitzaContrasenya(id, dto.getHashContrasenya());
+    public ResponseEntity<String> actualitzaContrasenya(@PathVariable("id") int id, @Valid @RequestBody ActualitzaContrasenyaDTO dto) { //hi ha més validacions que generen excepcions per l'antoacio @Valid. Veure ActiaotzaCmtrasemuaDTO i les anotacions amb arroba (congruents amb el front)
+        Optional<Usuari> usuariActualitzatOPTIONAL = serveiUPP.actualitzaContrasenya(dto, id);
 
         if (usuariActualitzatOPTIONAL.isPresent()) {
-            return new ResponseEntity<>("Contraseña actualizada correctamente.", HttpStatus.OK);
+            return new ResponseEntity<>("Contraseña actualizada correctamente.", HttpStatus.OK); //200 OK
         } else {
-            return new ResponseEntity<>("Usuario no encontrado.", HttpStatus.NOT_FOUND);
-
+            return new ResponseEntity<>("Usuario no encontrado.", HttpStatus.NOT_FOUND);  //404
         }
     }
 
-     */
+
 
 
 }
