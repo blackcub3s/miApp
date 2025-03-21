@@ -185,8 +185,9 @@ public class UsuariServei {
             Usuari usuariPreActualitzacio = usuariPreActualitzacio_OPCIONAL.get();
 
             // Solo actualizamos la contraseña
-            if (dto.getHashContrasenya() != null) {
-                usuariPreActualitzacio.setHashContrasenya(dto.getHashContrasenya());
+            if (dto.getContrasenya() != null) {
+                String hasheteContrasenya = dto.getContrasenya() + "_ToDoHash"; //CAL FER-LO AQUI I CANVIAR EXTENSIO DE BBDD A LO QUE CALGUI TENINT EN COMPTE QUE HASHEJARAS UNA CONTASENYA D'ENTRE 8 I 25 CARÀCTERS
+                usuariPreActualitzacio.setHashContrasenya(hasheteContrasenya);
             }
 
             // Guardamos el usuario actualizado

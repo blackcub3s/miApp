@@ -20,5 +20,5 @@ public class ActualitzaContrasenyaDTO {
             message = "¡La contraseña debe contener al menos una minúscula, una mayúscula, un número y " +
                        "no puede contener espacios! Se admiten puntos y barras bajas pero no otros caracteres"
     )
-    private String hashContrasenya;
+    private String contrasenya; //COMPTE, QUE A LA BASE DE DADES EL CAMP ES DIU hashContrasneya, perquè guardem el hash. Però en el DTO diem contrasenya, ja que no està hashejada encara.
 }
