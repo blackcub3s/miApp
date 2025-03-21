@@ -242,7 +242,10 @@ public class UsuariControlador {
     }
 
     //MÈTODE PER A CANVIAR DADES PARCIALS D'UN USUARI --> la U del CRUD (UN PATCH).
-    //   EN AQUEST CAS CANVIEM LA CONTRASENYA.
+    //   - EN AQUEST CAS SERVEIX PER CANVIAR LA CONTRASENYA I CAP ALTRE RECURS
+    //   - AQUEST MÈTODE HA ESTAT MOLT BEN VALIDAT DINS ActualitzaContrasenyDTO.java d'acord amb el que ja havia fet al client en el camp de crear contrasenya.
+    //     LA CLASSE ManejadorExcepcions.java IMPRIMEIX LES EXCEPCIONS QUE GENERI LA CLASSE DTO en questió.
+    //   - TO DO --> Ho usaré per a fer el canvi de contrasenya quan l'usuari se n'oblidi i en vulgui una altra
     @PatchMapping("usuaris/{id}/contrasenya")
     public ResponseEntity<HashMap<String, String>> actualitzaContrasenya(@PathVariable("id") int id, @Valid @RequestBody ActualitzaContrasenyaDTO dto) { //hi ha més validacions que generen excepcions per l'antoacio @Valid. Veure ActiaotzaCmtrasemuaDTO i les anotacions amb arroba (congruents amb el front)
         Optional<Usuari> usuariActualitzatOPTIONAL = serveiUPP.actualitzaContrasenya(dto, id);
