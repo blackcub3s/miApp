@@ -244,13 +244,15 @@ public class UsuariControlador {
     //MÈTODE PER A CANVIAR DADES PARCIALS D'UN USUARI --> la U del CRUD (UN PATCH).
     //   EN AQUEST CAS CANVIEM LA CONTRASENYA.
     @PatchMapping("usuaris/{id}/contrasenya")
-    public ResponseEntity<String> actualitzaContrasenya(@PathVariable("id") int id, @Valid @RequestBody ActualitzaContrasenyaDTO dto) { //hi ha més validacions que generen excepcions per l'antoacio @Valid. Veure ActiaotzaCmtrasemuaDTO i les anotacions amb arroba (congruents amb el front)
+    public ResponseEntity<HashMap<String, String>> actualitzaContrasenya(@PathVariable("id") int id, @Valid @RequestBody ActualitzaContrasenyaDTO dto) { //hi ha més validacions que generen excepcions per l'antoacio @Valid. Veure ActiaotzaCmtrasemuaDTO i les anotacions amb arroba (congruents amb el front)
         Optional<Usuari> usuariActualitzatOPTIONAL = serveiUPP.actualitzaContrasenya(dto, id);
-
+        HashMap<String, String> resposta = new HashMap<>(); //posem un hashmap per tornar la resposta serialitzada amb json
         if (usuariActualitzatOPTIONAL.isPresent()) {
-            return new ResponseEntity<>("Contraseña actualizada correctamente.", HttpStatus.OK); //200 OK
+            resposta.put("mensaje", "Contraseña actualizada correctamente.");
+            return new ResponseEntity<>(resposta, HttpStatus.OK); //200 OK
         } else {
-            return new ResponseEntity<>("Usuario no encontrado.", HttpStatus.NOT_FOUND);  //404
+            resposta.put("mensaje", "Usuario no encontrado.");
+            return new ResponseEntity<>(resposta, HttpStatus.NOT_FOUND);  //404 NOT FOUND
         }
     }
 
