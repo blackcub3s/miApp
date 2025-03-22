@@ -4,6 +4,7 @@ package miApp.app.Usuaris.servei;
 
 import miApp.app.Usuaris.dto.ActualitzaContrasenyaDTO;
 import miApp.app.Usuaris.repositori.UsuariAmpliatRepositori;
+import miApp.app.utils.EncriptaContrasenyes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import miApp.app.Usuaris.model.Usuari;
@@ -186,8 +187,12 @@ public class UsuariServei {
 
             // Solo actualizamos la contraseña
             if (dto.getContrasenya() != null) {
-                String hasheteContrasenya = dto.getContrasenya() + "_ToDoHash"; //CAL FER-LO AQUI I CANVIAR EXTENSIO DE BBDD A LO QUE CALGUI TENINT EN COMPTE QUE HASHEJARAS UNA CONTASENYA D'ENTRE 8 I 25 CARÀCTERS
-                usuariPreActualitzacio.setHashContrasenya(hasheteContrasenya);
+                String contrasenyaPlaneta = dto.getContrasenya(); //CAL FER-LO AQUI I CANVIAR EXTENSIO DE BBDD A LO QUE CALGUI TENINT EN COMPTE QUE HASHEJARAS UNA CONTASENYA D'ENTRE 8 I 25 CARÀCTERS
+
+                EncriptaContrasenyes encriptador = new EncriptaContrasenyes();
+                String hashContrasenya = encriptador.hashejaContrasenya(contrasenyaPlaneta); //string de 60 caràcters hashejat
+
+                usuariPreActualitzacio.setHashContrasenya(hashContrasenya);
             }
 
             // Guardamos el usuario actualizado
