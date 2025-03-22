@@ -189,10 +189,11 @@ public class UsuariServei {
             if (dto.getContrasenya() != null) {
                 String contrasenyaPlaneta = dto.getContrasenya(); //CAL FER-LO AQUI I CANVIAR EXTENSIO DE BBDD A LO QUE CALGUI TENINT EN COMPTE QUE HASHEJARAS UNA CONTASENYA D'ENTRE 8 I 25 CARÀCTERS
 
-                EncriptaContrasenyes encriptador = new EncriptaContrasenyes();
-                String hashContrasenya = encriptador.hashejaContrasenya(contrasenyaPlaneta); //string de 60 caràcters hashejat
+                //EncriptaContrasenyes encriptador = new EncriptaContrasenyes();
+                //String hashContrasenya = encriptador.hashejaContrasenya(contrasenyaPlaneta); //string de 60 caràcters hashejat
 
-                usuariPreActualitzacio.setHashContrasenya(hashContrasenya);
+                //usuariPreActualitzacio.setHashContrasenya(hashContrasenya);
+                usuariPreActualitzacio.setHashContrasenya(contrasenyaPlaneta);
             }
 
             // Guardamos el usuario actualizado

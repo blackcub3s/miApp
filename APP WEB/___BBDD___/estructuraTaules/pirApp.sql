@@ -5,7 +5,7 @@ USE pirApp;
 CREATE TABLE usuari (  -- aquesta es la info que es guarda quan un usuari posa la seva contrassenya encara que no pagui (igual a netflix)
 	id_usuari INTEGER AUTO_INCREMENT,
     correu_electronic VARCHAR(70) NOT NULL UNIQUE,
-    hash_contrasenya VARCHAR(255) NOT NULL, --  Amb el Bcrypt algorithm és suficient un VARCHAR(60), PERÒ POSEM UN VARCHAR(255) QUE HAURIA DE PODER ACOMODAR CONTRASENYES MÉS SEGURES SI MAI CANVIEN L'ALGORISME O NOSALTRES EL CANVIEM
+    hash_contrasenya VARCHAR(255) NOT NULL,  -- Amb el Bcrypt algorithm es suficient un VARCHAR 60 PERo POSEM UN VARCHAR(255) per acomodar canvis futurs.
 	alies VARCHAR(30), -- el generarem aleatoriament potser
     pla_suscripcio_actual TINYINT NOT NULL, -- 0 es que no paga res pero que tenim les seves dades (sigui per baixa o per que ens ha donat correu i contrasenya). superior a 0 sera algun plan que permet accedir a dades (sigui perque paga o peroque li donem superusuari)
     data_registre DATETIME NOT NULL DEFAULT NOW(), -- AQUESTA COLUMNA NO L'HE ACONSEGUIT MAPEJAR AMB JAVA JPA ORM
