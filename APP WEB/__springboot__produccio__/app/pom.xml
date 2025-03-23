@@ -77,8 +77,11 @@
 			<artifactId>spring-boot-starter-validation</artifactId>
 		</dependency>
 
-		<!--Spring security permet que posis un hash a la contrasenya! Sense això la classe
-		encriptaContrasenyes del package utils no funcionaria i no odrias guardar els hashos!-->
+		<!--Spring security permet que posis un hash a la contrasenya i protegir endpoints. Sense això la classe
+		encriptaContrasenyes del package utils no funcionaria i no odrias guardar els hashos!
+		COMPTE. PER DEFECTE ET PROTEGEIX TOTS ELS ENDPOINTS I FA QUE DONI ERROR 401 TOTES LES CRIDES A API.
+		PER A PERMETRE QUE LES CRIDES SIGUIN PERMESES HAS DE CONFGURAR LA SEGURITY FILTER CHAIN DINS
+		seguretat-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
