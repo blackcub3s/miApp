@@ -18,7 +18,7 @@ public class ConfiguracioSeguretat {
         http
                 .authorizeHttpRequests(auth -> auth
                         //.requestMatchers("/api/usuaris").authenticated()  //ENDPOINT PROTEGIT
-                        .requestMatchers("/api/nreUsuaris").authenticated() //ENDPOINT PROTEGIT
+                        //.requestMatchers("/api/nreUsuaris").authenticated() //ENDPOINT PROTEGIT
                         .requestMatchers("/api/**").permitAll()  // PERMET QUE LA RESTA D'ENDPOINTS dins /api/ SIGUIN PUBLICS
                 )
                 .csrf(csrf -> csrf.disable());
