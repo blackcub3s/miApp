@@ -15,5 +15,5 @@ public class usuariDTO {
     private String alies;
 
 
-    //private Byte plaSuscripcioActual;
+    private Byte plaSuscripcioActual;
 }
