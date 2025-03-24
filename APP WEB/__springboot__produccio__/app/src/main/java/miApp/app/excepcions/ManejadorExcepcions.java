@@ -15,7 +15,7 @@ public class ManejadorExcepcions {
 
     //LA MethodArgumentNotValidException es la que llença les anotacions de @Valid dels DTOs.
 
-    @ExceptionHandler({MethodArgumentNotValidException.class, ExcepcioNoTrobat.class})
+    @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>> handleValidationExceptions(MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();
 
