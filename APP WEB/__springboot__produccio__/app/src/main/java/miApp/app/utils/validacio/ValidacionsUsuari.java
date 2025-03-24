@@ -1,4 +1,4 @@
-package miApp.app.utils;
+package miApp.app.utils.validacio;
 
 //VALIDO ELS CAMPS DE LA TAULA USUARI
 public class ValidacionsUsuari {
