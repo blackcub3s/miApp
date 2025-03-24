@@ -1,5 +1,9 @@
 package miApp.app.utils.validacio;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
+
 //VALIDO ELS CAMPS DE LA TAULA USUARI
 public class ValidacionsUsuari {
 
@@ -15,6 +19,13 @@ public class ValidacionsUsuari {
 
     //MISSATGE GENÈRIC ASSOCIAT A ANOTACIÓ @NOT_BLANK PER LES VALIDACIONS D'USUARI QUE FACIS
     public static final String MISSATGE_NOT_BLANK_GENERIC = "¡El campo no puede estar vacío, ni ser null! Comprueba que hayas usado la clave correcta en el JSON de entrada a la api!";
+
+
+    //VALIDACIO CAMP CORREU ELECTRONIC
+    public static final int TAMANY_MAXIM_EMAIL = 70;
+    public static final String MISSATGE_ERROR_TAMANY_EMAIL = "El tamaño del correo electrónico no puede superar "+String.valueOf(TAMANY_MAXIM_EMAIL)+" caracteres!";
+    public static final String REGEX_EMAIL = "^[^@,]+@[^\\\\s@]+\\\\.[^\\\\s@]+$"; //CAL MILLORAR-LA
+    public static final String MISSATGE_ERROR_CORREU = "El correo electrónico no es válido!";
 
 }
 
