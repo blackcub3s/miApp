@@ -136,10 +136,11 @@ public class UsuariServei {
     //CREA NOU USUARI (SI EXISTEIX NO L'ACTUALITZA).
     public Optional<Usuari> guardaUsuari(UsuariDTO dto) {
         Usuari usuari = new Usuari();
+        EncriptaContrasenyes encriptador = new EncriptaContrasenyes();
 
         //PASSO EL CONTINGUT DEL DTO, JA VALIDAT, A L'OBJECTE Usuari DE LA CAPA DEL MODEL
         usuari.setCorreuElectronic(dto.getCorreuElectronic());
-        usuari.setHashContrasenya(dto.getContrasenya()); //AQUI S'HA DE POSAR EL HASH!!
+        usuari.setHashContrasenya(encriptador.hashejaContrasenya(dto.getContrasenya()));   //VERSIO SENSE HASH --> usuari.setHashContrasenya(dto.getContrasenya());
         usuari.setAlies(dto.getAlies());
         usuari.setPlaSuscripcioActual(dto.getPlaSuscripcioActual());
 
@@ -171,9 +172,13 @@ public class UsuariServei {
         } else {
             Usuari usuariActualitzat = usuariActualitzatOPCIONAL.get();
 
-            //poso les dades de l'usuari que entra per paràmetre al nou usuari actualitzat
+            //GUARDO EL HASH DE LA CONTRASENYA
+            EncriptaContrasenyes encriptador = new EncriptaContrasenyes();
+
+            //SETTERS PER A PASSAR DEL DTO DE USUARI A LA ENTITY USUARI DEL MODEL
             usuariActualitzat.setCorreuElectronic(dto.getCorreuElectronic()); //poso el nou mail
-            usuariActualitzat.setHashContrasenya(dto.getContrasenya());   //poso la nova contra //AQUI HAS DE FER EL HASH
+            //usuariActualitzat.setHashContrasenya(dto.getContrasenya());   //NOVA CONTRA SENSE HASH (HO DEIXO COMENTAT PER SI MAI HE DE VERIFICAR QUE ENTRA B LA CONTRA)
+            usuariActualitzat.setHashContrasenya(encriptador.hashejaContrasenya(dto.getContrasenya()));    //NOVA CONTRA (EL SEU HASH AMB BCRYPT)
             usuariActualitzat.setAlies(dto.getAlies()); //poso el nou alies
             usuariActualitzat.setPlaSuscripcioActual(dto.getPlaSuscripcioActual());    //poso el nou pla de suscripcio
 
@@ -198,11 +203,11 @@ public class UsuariServei {
             if (dto.getContrasenya() != null) {
                 String contrasenyaPlaneta = dto.getContrasenya(); //CAL FER-LO AQUI I CANVIAR EXTENSIO DE BBDD A LO QUE CALGUI TENINT EN COMPTE QUE HASHEJARAS UNA CONTASENYA D'ENTRE 8 I 25 CARÀCTERS
 
-                //EncriptaContrasenyes encriptador = new EncriptaContrasenyes();
-                //String hashContrasenya = encriptador.hashejaContrasenya(contrasenyaPlaneta); //string de 60 caràcters hashejat
-
-                //usuariPreActualitzacio.setHashContrasenya(hashContrasenya);
-                usuariPreActualitzacio.setHashContrasenya(contrasenyaPlaneta);
+                //GUARDO EL HASH DE LA CONTRASENYA
+                EncriptaContrasenyes encriptador = new EncriptaContrasenyes();
+                String hashContrasenya = encriptador.hashejaContrasenya(contrasenyaPlaneta); //string de 60 caràcters hashejat
+                usuariPreActualitzacio.setHashContrasenya(hashContrasenya);
+                //usuariPreActualitzacio.setHashContrasenya(contrasenyaPlaneta);
             }
 
             // Guardamos el usuario actualizado
