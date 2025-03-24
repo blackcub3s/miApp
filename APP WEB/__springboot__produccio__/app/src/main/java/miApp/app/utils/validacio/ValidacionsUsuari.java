@@ -23,10 +23,8 @@ public class ValidacionsUsuari {
 
     //VALIDACIO CAMP CORREU ELECTRONIC
     public static final int TAMANY_MAXIM_EMAIL = 70;
-    public static final String MISSATGE_ERROR_TAMANY_EMAIL = "El tamaño del correo electrónico no puede superar "+String.valueOf(TAMANY_MAXIM_EMAIL)+" caracteres!";
+    public static final String MISSATGE_ERROR_TAMANY_EMAIL = "El tamaño del correo electrónico no puede superar 70 caracteres!";
     public static final String REGEX_EMAIL = "^[^@,]+@[^\\\\s@]+\\\\.[^\\\\s@]+$"; //CAL MILLORAR-LA
     public static final String MISSATGE_ERROR_CORREU = "El correo electrónico no es válido!";
 
 }
-
-
