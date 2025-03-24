@@ -8,6 +8,7 @@ package miApp.app.Usuaris.controlador;
 
 import jakarta.validation.Valid;
 import miApp.app.Usuaris.dto.ActualitzaContrasenyaDTO;
+import miApp.app.Usuaris.dto.UsuariDTO;
 import miApp.app.Usuaris.model.Usuari;
 import miApp.app.Usuaris.repositori.UsuariRepositori;
 import miApp.app.Usuaris.servei.UsuariServei;
@@ -177,8 +178,8 @@ public class UsuariControlador {
     //PRE: POTS VEURE EL PRE DE PUT, QUE ÉS IGUAL
     //POST: POTS VEURE EL POST DE PUT, QUE ÉS IGUAL.
     @PostMapping("/usuaris")
-    public ResponseEntity<Usuari> creaUsuari(@RequestBody Usuari usuari) {
-        Optional<Usuari> nouUsuariOPTIONAL = serveiUPP.guardaUsuari(usuari);
+    public ResponseEntity<Usuari> creaUsuari(@RequestBody @Valid UsuariDTO dto) {
+        Optional<Usuari> nouUsuariOPTIONAL = serveiUPP.guardaUsuari(dto);
 
         if (nouUsuariOPTIONAL.isPresent()) { //si usuari s'ha afegit, aquest tipus Optional tindrà un usuari dins
             Usuari nouUsuari = nouUsuariOPTIONAL.get();

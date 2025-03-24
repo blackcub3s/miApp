@@ -3,6 +3,7 @@
 package miApp.app.Usuaris.servei;
 
 import miApp.app.Usuaris.dto.ActualitzaContrasenyaDTO;
+import miApp.app.Usuaris.dto.UsuariDTO;
 import miApp.app.Usuaris.repositori.UsuariAmpliatRepositori;
 import miApp.app.utils.EncriptaContrasenyes;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -133,7 +134,15 @@ public class UsuariServei {
 
 
     //CREA NOU USUARI (SI EXISTEIX NO L'ACTUALITZA).
-    public Optional<Usuari> guardaUsuari(Usuari usuari) {
+    public Optional<Usuari> guardaUsuari(UsuariDTO dto) {
+        Usuari usuari = new Usuari();
+
+        //PASSO EL CONTINGUT DEL DTO, JA VALIDAT, A L'OBJECTE Usuari DE LA CAPA DEL MODEL
+        usuari.setCorreuElectronic(dto.getCorreuElectronic());
+        usuari.setHashContrasenya(dto.getContrasenya()); //AQUI S'HA DE POSAR EL HASH!!
+        usuari.setAlies(dto.getAlies());
+        usuari.setPlaSuscripcioActual(dto.getPlaSuscripcioActual());
+
         if (repoUsuari.trobaStringUsuariPerCorreu(usuari.getCorreuElectronic()).isPresent()) {
             return Optional.empty(); // Si l'usuari ja existeix, torna un optional buit.
         }
