@@ -4,10 +4,8 @@ package miApp.app.Usuaris.servei;
 
 import miApp.app.Usuaris.dto.ActualitzaContrasenyaDTO;
 import miApp.app.Usuaris.repositori.UsuariAmpliatRepositori;
-import miApp.app.excepcions.NotFoundException;
 import miApp.app.utils.EncriptaContrasenyes;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 import miApp.app.Usuaris.model.Usuari;
 import miApp.app.Usuaris.model.UsuariAmpliat;
@@ -74,7 +72,7 @@ public class UsuariServei {
     //(AIXO TINDRÀ MÉS SENTIT FER-HO EN UN ALTRE PROJECTE SPRING... PERQUE TE A VEURE AMB PROMO I MARKETING)
     //pre: res
     //POST: llista de strings amb els correus electronics que hi ha a la APP.
-     public List<String> correusUsuarisApp() {
+    public List<String> correusUsuarisApp() {
         return repoUsuari.trobaTotsElsCorreusDelsUsuarisRegistrats();
     }
 
@@ -129,8 +127,7 @@ public class UsuariServei {
 
     //SI EL TROBA TORNA L'USUARI. EN CAS CONTRARI RETORNA
     public Optional<Usuari> trobaPerId(int id) {
-        Optional<Usuari> usuariOp = repoUsuari.findById(id).orElseThrow(() -> new NotFoundException("No se ha encontrado un usuario para borrar."));
-        Usuari usuariOp = this.trobaPerId(id).orElseThrow(() -> new NotFoundException("No se ha encontrado un usuario para borrar."));
+        Optional<Usuari> usuariOp = repoUsuari.findById(id);
         return usuariOp;
     }
 
@@ -145,8 +142,8 @@ public class UsuariServei {
 
     //PRE: un usuari per paràmetre.
     //POST: si usuari existia a BBDD s'esborra i retorna true. En cas contrari, no es fa res, i es retorna false.
-    public void esborraUsuari(int id) {
-        Usuari usuariOp = this.trobaPerId(id);
+    public boolean esborraUsuari(int id) {
+        Optional<Usuari> usuariOp = this.trobaPerId(id);
         if (usuariOp.isPresent()) {
             repoUsuari.delete(usuariOp.get());
             return true;
