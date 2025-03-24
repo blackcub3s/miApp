@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+import miApp.app.utils.validacio.Password;
 
 //IMPORTO LES VALIDACIONS
 import static miApp.app.utils.ValidacionsUsuari.*;
@@ -19,8 +20,6 @@ import static miApp.app.utils.ValidacionsUsuari.*;
 public class ActualitzaContrasenyaDTO {
 
     //LES ANOTACIONS CONTENEN LES VALIDACIONS (QUE POSEM EN utils, validaciosnUsuari)!!!
-    @Size(min = TAMANY_MINIM_CONTRASENYA, max = TAMANY_MAXIM_CONTRASENYA, message = MISSATGE_ERROR_TAMANY) //també va en tàndem a @valid (COMPTE QUE NO CUBREIX EL CAS EN QUE ENTRI null EN COMPTES DE STRING BUIT)
-    @NotBlank(message = MISSATGE_NOT_BLANK_GENERIC)     //@NotBlank VA EN TÀNDEM A @valid dins del paràmetre del controlador de la funció actualitzaContrasenya
-    @Pattern(regexp = REGEX_CONTRASENYA, message = MISSATGE_ERROR_CONTRASENYA)
+    @Password
     private String contrasenya; //COMPTE, QUE A LA BASE DE DADES EL CAMP ES DIU hashContrasneya, perquè guardem el hash. Però en el DTO diem contrasenya, ja que no està hashejada encara.
 }

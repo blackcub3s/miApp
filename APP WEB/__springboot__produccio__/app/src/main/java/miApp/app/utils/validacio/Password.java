@@ -19,15 +19,14 @@ import static miApp.app.utils.ValidacionsUsuari.MISSATGE_ERROR_CONTRASENYA;
 @Target({ElementType.FIELD, ElementType.PARAMETER})
 @Retention(RUNTIME)
 @Documented
+@Constraint(validatedBy = {}) //indispensable sino peta
+
 @Size(min = TAMANY_MINIM_CONTRASENYA, max = TAMANY_MAXIM_CONTRASENYA, message = MISSATGE_ERROR_TAMANY) //també va en tàndem a @valid (COMPTE QUE NO CUBREIX EL CAS EN QUE ENTRI null EN COMPTES DE STRING BUIT)
 @NotBlank(message = MISSATGE_NOT_BLANK_GENERIC)     //@NotBlank VA EN TÀNDEM A @valid dins del paràmetre del controlador de la funció actualitzaContrasenya
 @Pattern(regexp = REGEX_CONTRASENYA, message = MISSATGE_ERROR_CONTRASENYA)
-@Constraint(validatedBy = {})
 public @interface Password {
     String message() default "La contraseña no es válida.";
-
     Class<?>[] groups() default {};
-
     Class<? extends Payload>[] payload() default {};
 }
 
