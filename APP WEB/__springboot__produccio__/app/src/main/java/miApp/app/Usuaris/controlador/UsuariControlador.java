@@ -6,6 +6,8 @@ package miApp.app.Usuaris.controlador;
 //PAS4: Controlador Rest. Amb aixo exposarem l'endpoint que creem al servei UsuariPrePago. Injectarem
 // la dependència del Servei.
 
+import jakarta.validation.Valid;
+import miApp.app.Usuaris.dto.ActualitzaContrasenyaDTO;
 import miApp.app.Usuaris.model.Usuari;
 import miApp.app.Usuaris.repositori.UsuariRepositori;
 import miApp.app.Usuaris.servei.UsuariServei;
@@ -19,8 +21,8 @@ import java.util.List;
 import java.util.Optional;
 
 
-@RestController //RETORNA DADES EN LLOC DE VISTES (VISTES ERIA @CONTROLLER)
-@RequestMapping("/api")  // Optional: define a common base path for your REST endpoints
+@RestController           //RestController --> l'anotació RestController retorna dades en comptes de vistes (vistes, en canvi, seria @CONTROLLER, que no ho usarem perquè el front va en un altre servidor -vscode live server-)
+@RequestMapping("/api")   //RequestMapping --> és una anotació OPCIONAl que et defineix una ruta base per als REST endpoints que crearàs en aquest controlador. p.ex, si tens @RequestMapping("/api") com a anotació damunt de la classe UsuariControlador i després en un endpoint de solicitud get tens  @GetMapping("/usuaris"), hauràs de fer la solicitud a localhost:8080/api/usuaris.
 public class UsuariControlador {
 
     private final UsuariServei serveiUPP; //millor fer-ho final
@@ -240,7 +242,23 @@ public class UsuariControlador {
     }
 
     //MÈTODE PER A CANVIAR DADES PARCIALS D'UN USUARI --> la U del CRUD (UN PATCH).
-    // TO DO --> @PatchMapping("/usuaris/{id}")
+    //   - EN AQUEST CAS SERVEIX PER CANVIAR LA CONTRASENYA I CAP ALTRE RECURS
+    //   - AQUEST MÈTODE HA ESTAT MOLT BEN VALIDAT DINS ActualitzaContrasenyDTO.java d'acord amb el que ja havia fet al client en el camp de crear contrasenya.
+    //     LA CLASSE ManejadorExcepcions.java IMPRIMEIX LES EXCEPCIONS QUE GENERI LA CLASSE DTO en questió.
+    //   - TO DO --> Ho usaré per a fer el canvi de contrasenya quan l'usuari se n'oblidi i en vulgui una altra
+    @PatchMapping("usuaris/{id}/contrasenya")
+    public ResponseEntity<HashMap<String, String>> actualitzaContrasenya(@PathVariable("id") int id, @Valid @RequestBody ActualitzaContrasenyaDTO dto) { //hi ha més validacions que generen excepcions per l'antoacio @Valid. Veure ActiaotzaCmtrasemuaDTO i les anotacions amb arroba (congruents amb el front)
+        Optional<Usuari> usuariActualitzatOPTIONAL = serveiUPP.actualitzaContrasenya(dto, id);
+        HashMap<String, String> resposta = new HashMap<>(); //posem un hashmap per tornar la resposta serialitzada amb json
+        if (usuariActualitzatOPTIONAL.isPresent()) {
+            resposta.put("mensaje", "Contraseña actualizada correctamente.");
+            return new ResponseEntity<>(resposta, HttpStatus.OK); //200 OK
+        } else {
+            resposta.put("mensaje", "Usuario no encontrado.");
+            return new ResponseEntity<>(resposta, HttpStatus.NOT_FOUND);  //404 NOT FOUND
+        }
+    }
+
 
 
 
