@@ -164,7 +164,7 @@ public class UsuariServei {
     //POST: si l'usuari existeix s'actualitza el recurs d'usuari
     //      i es torna l'usuari actualitzat dins un optional. En cas contrari,
     //      no s'actualitza res i es torna l'optional.empty()
-    public Optional<Usuari> actualitzaUsuari(Usuari usuari, int id) {
+    public Optional<Usuari> actualitzaUsuari(UsuariDTO dto, int id) {
         Optional<Usuari> usuariActualitzatOPCIONAL = this.trobaPerId(id); //si no el troba usuariActualitzatOPCIONAL serà buit
         if (usuariActualitzatOPCIONAL.isEmpty()) {
             return Optional.empty();
@@ -172,10 +172,10 @@ public class UsuariServei {
             Usuari usuariActualitzat = usuariActualitzatOPCIONAL.get();
 
             //poso les dades de l'usuari que entra per paràmetre al nou usuari actualitzat
-            usuariActualitzat.setCorreuElectronic(usuari.getCorreuElectronic()); //poso el nou mail
-            usuariActualitzat.setHashContrasenya(usuari.getHashContrasenya());   //poso la nova contra.
-            usuariActualitzat.setAlies(usuari.getAlies()); //poso el nou alies
-            usuariActualitzat.setPlaSuscripcioActual(usuari.getPlaSuscripcioActual());    //poso el nou pla de suscripcio
+            usuariActualitzat.setCorreuElectronic(dto.getCorreuElectronic()); //poso el nou mail
+            usuariActualitzat.setHashContrasenya(dto.getContrasenya());   //poso la nova contra //AQUI HAS DE FER EL HASH
+            usuariActualitzat.setAlies(dto.getAlies()); //poso el nou alies
+            usuariActualitzat.setPlaSuscripcioActual(dto.getPlaSuscripcioActual());    //poso el nou pla de suscripcio
 
             //guardo l'usuari actualitzat i el que ja s'ha guardat el passo al controlador per veure'l
             Usuari usuariActualitzatGUARDAT = repoUsuari.save(usuariActualitzat);

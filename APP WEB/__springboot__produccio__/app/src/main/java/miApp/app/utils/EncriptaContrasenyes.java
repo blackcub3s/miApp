@@ -9,16 +9,20 @@ public class EncriptaContrasenyes {
 
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(); //per defecte usa 10 rounds de strength (pot ser entre 4 i 31 segons la documentacio).
 
+
     //PRE: una contrasenya.
     //POST: el hash de la contrasenya.
     public String hashejaContrasenya(String contrasenya) {
         return passwordEncoder.encode(contrasenya);
     }
+
+
     //PRE: una contrasenya plana i una contrasenya hashejada
     //POST: retorna true si la contrasenya plana, un cop hashejada coincideix amb la contrasenyaHash. False altrament.
     public boolean verificaContrasenya(String contrasenyaPlana, String contrasenyaHash) {
         return passwordEncoder.matches(contrasenyaPlana, contrasenyaHash);
     }
+
 
 
     //MAIN PER A TESTEJAR LA CLASE. FUNCIONA PERFECTA.

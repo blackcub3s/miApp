@@ -197,10 +197,12 @@ public class UsuariControlador {
     //      SI S'INTENTA AFEGIR UN CORREU JA EXISTENT A UN USUARI DIFERENT --------> tornarà internal server error (500, compte --> millorable)
 
     /*
-    //PRE: Des del client entrarà un JSON de l'estil i a la URL posaras l'URI http://localhost:8080/api/usuaris/4 si l'usuari te idUsuari 4.
+    //PRE: Des del client entrarà un JSON de l'estil seguent (el que es congruent amb el DTOusuari
+     i a la URL posaras l'URI http://localhost:8080/api/usuaris/4
+     si l'usuari te idUsuari 4.
             {
                 "correuElectronic": "titu9@exemplete.com",
-                "hashContrasenya": "ijk",
+                "contrasenya": "ijk",
                 "alies": "chuckUson",
                 "plaSuscripcioActual": 0
             }
@@ -214,8 +216,8 @@ public class UsuariControlador {
             }
     */
     @PutMapping("/usuaris/{id}")
-    public ResponseEntity<Usuari> actualitzaUsuari(@RequestBody Usuari usuari, @PathVariable("id") int id) {
-        Optional<Usuari> usuariActualitzatOPTIONAL = serveiUPP.actualitzaUsuari(usuari, id);
+    public ResponseEntity<Usuari> actualitzaUsuari(@RequestBody UsuariDTO dto, @PathVariable("id") int id) {
+        Optional<Usuari> usuariActualitzatOPTIONAL = serveiUPP.actualitzaUsuari(dto, id);
 
         if (usuariActualitzatOPTIONAL.isPresent()) { //si usuari s'ha afegit, aquest tipus Optional tindrà un usuari dins
             Usuari usuariActualitzat = usuariActualitzatOPTIONAL.get();
