@@ -63,10 +63,12 @@
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 
-		<!-- evita el boilerplate -->
+		<!-- evita el boilerplate: getters i setters automatics -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
+			<version>1.18.36</version>
+			<scope>provided</scope>
 		</dependency>
 
 
@@ -98,17 +100,26 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 
-			<!--Afegeix la configuraciO UTF-8 a tot el projecte: PERO NO ACONSEGUEIXO COMPILAR
+			<!--INDISPENSABLE EL MAVEN COMPILER PLUGIN CON EL ANNOTATION
+			PROCESSOR PATHS CON LA VERSION DE LOMBOK DENTRO. EN CASO CONTRARIO
+			NO COMPILARA AL HACER mvn compile EN EL LIFECYCLE Y NO PODRAS OBTENER EL JAR.
+
+			cercar a stack overflow Lombok not compiling in maven que es d on surt aquest codi
+			-->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-resources-plugin</artifactId>
-				<version>3.3.1</version> Especifico la ultima versio estable  del maven resources plugin
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.1</version>
 				<configuration>
-					<encoding>UTF-8</encoding>
+					<annotationProcessorPaths>
+						<path>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+							<version>1.18.36</version>
+						</path>
+					</annotationProcessorPaths>
 				</configuration>
 			</plugin>
-			-->
-
 
 		</plugins>
 
