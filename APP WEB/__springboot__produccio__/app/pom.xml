@@ -9,8 +9,8 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>pirapp</groupId>
-	<artifactId>app</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>app</artifactId>      <!--ES EL NOM QUE TINDRA EL .jar EN FER mvn package -->
+	<version>0.0.1-SNAPSHOT</version> <!--ES CONCATENARA AL .jar DESPRES DE artifactId-->
 	<name>app</name>
 	<description>Aplicacio web de preguntes del pir</description>
 	<url/>
@@ -96,6 +96,15 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+
+			<!--Afegeix la configuració UTF-8 a tot el projecte-->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<configuration>
+					<encoding>UTF-8</encoding>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
