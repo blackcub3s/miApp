@@ -106,7 +106,7 @@ public class UsuariServei {
 
             return true; // guardat dusuari exitos
         } catch (Exception e) {
-            // SI HI HA ERRORS DE CONNEXIÍ PER EXEMPLE, DONARA ERROR I RETORNARA EL BOLLEA FALSE
+            // SI HI HA ERRORS DE CONNEXIO PER EXEMPLE, DONARA ERROR I RETORNARA EL BOLLEA FALSE
             System.err.println("Error saving user: " + e.getMessage());
             return false; // Save operation failed
         }
